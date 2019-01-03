@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>WRFnews</title>
+    <link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/signin.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

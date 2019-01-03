@@ -1,0 +1,22 @@
+{% extends "base_usuario.html" %}
+{% block body %}
+<form action="{% url 'registrar' %}" method="post">
+    {% csrf_token %}
+    <h2>Crie seu usuário</h2>
+
+    <input id="id_nome" name="nome" placeholder="Nome *" required>
+    <input autofocus id="id_email" name="email" placeholder="Email *" required>
+    <input id="id_senha" name="senha" placeholder="Senha *" required type="password">
+
+    <hr/>
+    <button type="submit" value="Login">Registrar</button>
+    {% if form.errors %}
+	<div class="alert alert-danger">
+		<button type="button" class="close"
+				data-dismiss="alert" aria-hidden="true">
+		</button>
+		{{ form.non_field_errors }}
+	</div>
+	{% endif %}
+</form>
+{% endblock %}

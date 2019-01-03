@@ -1,0 +1,26 @@
+{% extends "base_usuario.html" %}
+{% block body %}
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <h2>Login</h2>
+    <input autofocus id="id_username"
+           name="username" placeholder="Nome" required>
+
+    <input id="id_password" name="password" placeholder="Senha"
+
+           required type="password">
+
+    <button type="submit" value="Login">Login</button>
+    {% if form.errors %}
+    <div>
+        <button aria-hidden="true"
+
+                data-dismiss="alert" type="button">×
+        </button>
+
+        Por favor, verifique o Email e/ou Senha informados
+    </div>
+    {% endif %}
+    <a href="{% url 'registrar' %}">registre-se</a>
+</form>
+{% endblock %}
