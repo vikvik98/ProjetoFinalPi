@@ -10,7 +10,8 @@
         {% for convite in perfil_logado.convites_recebidos.all %}
 
             <ul>
-                <li>{{convite.solicitante.nome}} <a href="{% url 'aceitar' convite.id %}">Aceitar</a></li>
+                <li>{{convite.solicitante.nome}} <a href="{% url 'aceitar' convite.id %}">Aceitar</a>
+                <a href="{% url 'rejeitar' convite.id %}">Rejeitar</a></li>
             </ul>
 
         {% endfor %}

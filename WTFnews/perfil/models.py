@@ -20,3 +20,6 @@ class Convite(models.Model):
         self.convidado.amigos.add(self.solicitante)
         self.solicitante.amigos.add(self.convidado)
         self.delete()
+
+    def rejeitar(self):
+        self.delete()

@@ -29,5 +29,6 @@ urlpatterns = [
     path('perfil/logado', views.exibir_perfil_logado, name='exibir_perfil_logado'),
     path('perfil/<int:perfil_id>/convidar',views.convidar, name='convidar'),
     path('convite/<int:convite_id>/aceitar$',views.aceitar, name='aceitar'),
+    path('convite/<int:convite_id>/rejeitar',views.rejeitar, name='rejeitar'),
 
 ]
