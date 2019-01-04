@@ -1,5 +1,13 @@
 {% extends 'base_perfil.html' %}
 {% block body %}
-    <h1>Olá senhor {{perfil_logado.nome}}</h1>
-
+    <h1>Possiveis amigos.</h1>
+    {% if perfis %}
+        {% for perfil in perfis %}
+        <ul>
+            <li><a href="{% url 'exibir' perfil.id %}"> {{perfil.nome}}</a></li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <h2>Você não possui possiveis amigos :(</h2>
+    {% endif %}
 {% endblock %}

@@ -9,7 +9,7 @@
     <input id="id_senha" name="senha" placeholder="Senha *" required type="password">
 
     <hr/>
-    <button type="submit" value="Login">Registrar</button>
+    <button type="submit" value="{% url 'login' %}">Registrar</button>
     {% if form.errors %}
 	<div class="alert alert-danger">
 		<button type="button" class="close"

@@ -1,0 +1,12 @@
+{% extends 'base_perfil.html' %}
+{% block body %}
+    <h1 align="center">Informações do perfil</h1>
+    <ul>
+        <li>Nome: {{perfil.nome}}</li>
+    </ul>
+    {% if ja_eh_amigo %}
+        <strong>Vocês são amigos</strong>
+    {% else %}
+        <a href="{% url 'convidar' perfil.id %}">Convidar</a>
+    {% endif %}
+{% endblock %}

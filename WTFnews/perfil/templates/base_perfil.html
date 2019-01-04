@@ -7,6 +7,7 @@
 <body>
     <a href="/logout/">Logout</a>
     <a href="{% url 'index' %}">WTFnews</a>
+    <a href="{% url 'exibir_perfil_logado' %}">{{perfil_logado.nome}}</a>
     {% block body %}
     {% endblock %}
 
