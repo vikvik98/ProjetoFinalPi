@@ -67,3 +67,10 @@ def rejeitar(request, convite_id):
     convite = Convite.objects.get(id=convite_id)
     convite.rejeitar()
     return redirect('index')
+
+@login_required
+def remover_amizade(request, perfil_id):
+    perfil_logado = get_perfil_logado(request)
+    perfil_removido = Perfil.objects.get(id=perfil_id)
+    perfil_logado.amigos.remove(perfil_removido)
+    return redirect('index')

@@ -6,6 +6,7 @@
     </ul>
     {% if ja_eh_amigo %}
         <strong>Vocês são amigos</strong>
+        <a href="{% url 'remover_amizade' perfil.id %}">Remover amizade</a>
     {% else %}
         <a href="{% url 'convidar' perfil.id %}">Convidar</a>
     {% endif %}
