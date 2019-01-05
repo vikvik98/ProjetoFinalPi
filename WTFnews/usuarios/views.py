@@ -15,12 +15,12 @@ class RegistrarUsuarioView(View):
         form = RegistrarUsuarioForm(request.POST)
         if form.is_valid():
             dados_form = form.cleaned_data
-            usuario = User.objects.create_user(username= dados_form['username'],
+            usuario = User.objects.create_user(username= dados_form['nome'],
                                                email= dados_form['email'],
-                                               password= dados_form['password'])
+                                               password= dados_form['senha'])
 
-            perfil = Perfil(nome=dados_form['username'], usuario=usuario)
+            perfil = Perfil(nome=dados_form['nome'], usuario=usuario)
             perfil.save()
-            return redirect('login.html')
+            return redirect('login')
 
         return render(request, self.template_name, {'form': form})
