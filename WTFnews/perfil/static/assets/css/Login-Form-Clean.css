@@ -17,7 +17,7 @@
 .login-clean .illustration {
   text-align:center;
   padding:0 0 20px;
-  font-size:50px;
+  font-size:100px;
   color:rgb(244,71,107);
   position:relative;
 }
@@ -29,13 +29,13 @@
   border-radius:0;
   box-shadow:none;
   outline:none;
-  color:#ff9900;
+  color:inherit;
   text-indent:8px;
   height:42px;
 }
 
-.login-clean form .btn-warning {
-  background:#ff9900;
+.login-clean form .btn-primary {
+  background:#474ef4;
   border:none;
   border-radius:4px;
   padding:11px;
@@ -45,7 +45,7 @@
   outline:none !important;
 }
 
-.login-clean form .btn-warning:active {
+.login-clean form .btn-primary:active {
   transform:translateY(1px);
 }
 
@@ -74,12 +74,5 @@
   color:#b10543;
   /*display:none;*/
   font-size:14px;
-}
-
-.vvzhL {
-    font-weight: 600;
-    line-height: 20px;
-    font-size: 17px;
-    margin: 20px 10px 20px;
 }
 

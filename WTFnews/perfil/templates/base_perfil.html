@@ -1,15 +1,72 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt">
+<html>
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WTFnews</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
 </head>
+
 <body>
-    <a href="/logout/">Logout</a>
-    <a href="{% url 'index' %}">WTFnews</a>
-    <a href="{% url 'exibir_perfil_logado' %}">{{perfil_logado.nome}}</a>
+    <div class="container-fluid header-top">
+        <div class="col-md-12" style="padding:0px;">
+            <div class="top-menu-logo">
+                <a href="/">
+                    <img src="{% static 'assets/img/logo.png' %}" class="center-block"
+                         style="height:40px;margin:2%">
+                </a>
+                <div class="menu-buttons">
+                    <a href="#">
+                        <button class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </button>
+                    </a>
+                    <a href="#">
+                        <button class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-heart"></i>
+                        </button>
+                    </a>
+                    <a href="{% url 'exibir_perfil_logado' %}">
+                        <button class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </button>
+                    </a>
+                    <a href="{% url 'logout' %}">
+                        <button class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-log-out"></i>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% block body %}
     {% endblock %}
 
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
+
 </html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="pt">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>WTFnews</title>-->
+<!--</head>-->
+<!--<body>-->
+    <!--<a href="/logout/">Logout</a>-->
+    <!--<a href="{% url 'index' %}">WTFnews</a>-->
+    <!--<a href="{% url 'exibir_perfil_logado' %}">{{perfil_logado.nome}}</a>-->
+<!--</body>-->
+<!--</html>-->
