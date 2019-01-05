@@ -2,12 +2,12 @@
 {% load static %}
 {% block body %}
 
-<form method="post" action="{% url 'login' %}">
+<form action="{% url 'login' %}" method="post">
     {% csrf_token %}
     <div class="illustration"><img src="{% static 'assets/img/logo.png' %}"></div>
     <div class="form-group" style="position:relative;">
-        <input class="form-control" id="id_email" type="email" name="email"
-               placeholder="Email" required autofocus>
+        <input class="form-control" id="id_username" name="username"
+               placeholder="Username" required autofocus>
     </div>
     <div class="form-group">
         <input class="form-control" id="id_password" type="password" name="password" placeholder="Password">
@@ -18,7 +18,7 @@
 
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
-        <button type="button" class="close"
+        <button type="submit" class="close"
                 data-dismiss="alert" aria-hidden="true">×</button>
         Por favor, verifique o Email e/ou Senha informados
         {{form.non_field_errors}}
