@@ -1,18 +1,23 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>WRFnews</title>
-    <link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'styles/signin.css' %}" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTFnews</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
 </head>
+
 <body>
-    <div class="container">
+    <div class="login-clean">
         {% block body %}
         {% endblock %}
     </div>
-
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
+
 </html>

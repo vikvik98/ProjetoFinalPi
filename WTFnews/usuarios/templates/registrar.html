@@ -1,15 +1,27 @@
 {% extends "base_usuario.html" %}
+{% load static %}
 {% block body %}
-<form action="{% url 'registrar' %}" method="post">
+
+<form method="post">
     {% csrf_token %}
-    <h2>Crie seu usuário</h2>
+    <div class="illustration"><img src="{% static 'assets/img/logo.png' %}"></div>
+    <h2 class="vvzhL ">Sign up to see photos and videos from your friends.</h2>
+    <div class="form-group">
+        <input class="form-control" id="id_username" type="text" name="username" placeholder="Username"
+               maxlength="20" minlength="4" autofocus required>
+    </div>
+    <div class="form-group">
+        <input class="form-control" id="id_email" type="email" name="email" placeholder="Email"
+               maxlength="100" minlength="6" required>
+    </div>
+    <div class="form-group">
+        <input class="form-control" id="id_password" type="password" name="password" placeholder="Password"
+               maxlength="20" minlength="6" required>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-warning btn-block" type="submit">Create Account</button>
+    </div>
 
-    <input id="id_nome" name="nome" placeholder="Nome *" required>
-    <input autofocus id="id_email" name="email" placeholder="Email *" required>
-    <input id="id_senha" name="senha" placeholder="Senha *" required type="password">
-
-    <hr/>
-    <button type="submit" value="{% url 'login' %}">Registrar</button>
     {% if form.errors %}
 	<div class="alert alert-danger">
 		<button type="button" class="close"
@@ -18,5 +30,8 @@
 		{{ form.non_field_errors }}
 	</div>
 	{% endif %}
+
+    <a href="#" class="forgot">Already got an account? Login here ...</a>
 </form>
+
 {% endblock %}
