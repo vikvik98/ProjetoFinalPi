@@ -21,6 +21,6 @@ class RegistrarUsuarioView(View):
 
             perfil = Perfil(nome=dados_form['nome'], usuario=usuario)
             perfil.save()
-            return redirect('login.html')
+            return redirect('login')
 
         return render(request, self.template_name, {'form': form})
