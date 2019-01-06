@@ -2,12 +2,12 @@
 {% block body %}
     <h1 align="center">Informações do perfil</h1>
     <ul>
-        <li>Nome: {{perfil.nome}}</li>
+        <li>Nome: {{profile.name}}</li>
     </ul>
-    {% if ja_eh_amigo %}
+    {% if is_friend %}
         <strong>Vocês são amigos</strong>
-        <a href="{% url 'remover_amizade' perfil.id %}">Remover amizade</a>
+        <a href="{% url 'undo_friendship' profile.id %}">Desfazer amizade</a>
     {% else %}
-        <a href="{% url 'convidar' perfil.id %}">Convidar</a>
+        <a href="{% url 'invite' profile.id %}">Convidar</a>
     {% endif %}
 {% endblock %}

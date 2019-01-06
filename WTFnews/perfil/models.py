@@ -1,25 +1,53 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 
-class Perfil(models.Model):
-    nome = models.CharField(max_length=250, null=False)
-    usuario = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE)
-    amigos = models.ManyToManyField('self')
-    def convidar(self, perfil_convidado):
-        convite = Convite(solicitante=self, convidado=perfil_convidado)
-        convite.save()
+class Profile(models.Model):
+
+    name = models.CharField(max_length=80)
+    user = models.OneToOneField(User, related_name='profile',
+                                   on_delete=models.CASCADE)
+    friends = models.ManyToManyField('self')
+    invitations = models.ManyToManyField('self', through='Invitation', symmetrical=False)
 
 
-class Convite(models.Model):
-    solicitante = models.ForeignKey(Perfil, related_name='convites_feitos', on_delete=models.CASCADE)
-    convidado = models.ForeignKey(Perfil, related_name='convites_recebidos', on_delete=models.CASCADE)
+    def invite(self, invited_profile, date):
+        invitation = Invitation(inviter=self, guest=invited_profile, send_date=date)
+        invitation.save()
 
-    def aceitar(self):
-        self.convidado.amigos.add(self.solicitante)
-        self.solicitante.amigos.add(self.convidado)
+
+    def accept_invitation(self, invitation):
+        if invitation.guest == self:
+            invitation.accept()
+            return True
+        return False
+
+
+    def decline_invitation(self, invitation):
+        if invitation.guest == self:
+            invitation.decline()
+            return True
+        return False
+
+
+    def cancel_invitation(self, invitation):
+        if invitation.inviter == self:
+            invitation.decline()
+            return True
+        return False
+
+
+class Invitation(models.Model):
+
+    inviter = models.ForeignKey(Profile, related_name='sent_invitations', on_delete=models.CASCADE)
+    guest = models.ForeignKey(Profile, related_name='received_invitations', on_delete=models.CASCADE)
+    send_date = models.DateTimeField()
+
+
+    def accept(self):
+        self.guest.friends.add(self.inviter)
         self.delete()
 
-    def rejeitar(self):
+
+    def decline(self):
         self.delete()
