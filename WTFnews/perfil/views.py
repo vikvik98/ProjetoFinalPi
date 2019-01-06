@@ -20,15 +20,17 @@ def index(request):
 
     suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
         .exclude(id__in=guests_profiles)\
+        .exclude(id__in=logged_profile_friends)\
         .exclude(id=logged_profile.id)
 
     sent_invitations = logged_profile.sent_invitations.all()
+    received_invitations = logged_profile.received_invitations.all()
 
     return render(request, 'index.html', {
         'logged_profile': logged_profile,
         'suggested_profiles': suggested_profiles,
         'sent_invitations': sent_invitations,
-        'inviters_profiles': inviters_profiles,
+        'received_invitations': received_invitations,
         'logged_profile_friends': logged_profile_friends
     })
 
