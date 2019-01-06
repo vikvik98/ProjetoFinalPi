@@ -1,25 +1,25 @@
 from django import forms
 from django.contrib.auth.models import User
 
-class RegistrarUsuarioForm(forms.Form):
-    nome = forms.CharField(required=True)
+class SingUpForm(forms.Form):
+    name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    senha = forms.CharField(required=True)
+    password = forms.CharField(required=True)
 
     def is_valid(self):
         valid = True
-        if not super(RegistrarUsuarioForm, self).is_valid():
-            self.adiciona_erro('Por favor, Verifique os dados informados')
+        if not super(SingUpForm, self).is_valid():
+            self.add_error('Por favor, Verifique os dados informados')
             valid = False
 
-        user_exists = User.objects.filter(username=self.cleaned_data['nome']).exists()
+        user_exists = User.objects.filter(username=self.cleaned_data['name']).exists()
         if user_exists:
-            self.adiciona_erro('Este email já está sendo usado.')
+            self.add_error('Este email já está sendo usado.')
             valid = False
 
         return valid
 
-    def adiciona_erro(self, message):
+    def add_error(self, message):
         errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
                                          forms.utils.ErrorList())
 

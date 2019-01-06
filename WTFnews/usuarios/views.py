@@ -1,26 +1,26 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.contrib.auth.models import User
-from perfil.models import Perfil
-from usuarios.forms import RegistrarUsuarioForm
+from perfil.models import Profile
+from usuarios.forms import SingUpForm
 
-class RegistrarUsuarioView(View):
+class SingUpView(View):
 
-    template_name = 'registrar.html'
+    template_name = 'register.html'
 
     def get(self, request):
         return render(request, self.template_name)
 
     def post(self, request):
-        form = RegistrarUsuarioForm(request.POST)
+        form = SingUpForm(request.POST)
         if form.is_valid():
-            dados_form = form.cleaned_data
-            usuario = User.objects.create_user(username= dados_form['nome'],
-                                               email= dados_form['email'],
-                                               password= dados_form['senha'])
+            data_form = form.cleaned_data
+            user = User.objects.create_user(username= data_form['name'],
+                                            email= data_form['email'],
+                                            password= data_form['password'])
 
-            perfil = Perfil(nome=dados_form['nome'], usuario=usuario)
-            perfil.save()
+            profile = Profile(name=data_form['name'], user=user)
+            profile.save()
             return redirect('login')
 
         return render(request, self.template_name, {'form': form})

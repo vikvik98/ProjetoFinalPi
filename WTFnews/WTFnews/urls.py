@@ -15,22 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from usuarios.views import RegistrarUsuarioView
+from usuarios.views import SingUpView
 from django.contrib.auth import views as v
 from perfil import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('registrar/', RegistrarUsuarioView.as_view(), name='registrar'),
+    path('sign-up/', SingUpView.as_view(), name='signup'),
     path('login/', v.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', v.LogoutView.as_view(template_name='login.html'), name='logout'),
-    path('perfil/<int:perfil_id>', views.exibir_perfil, name='exibir'),
-    path('perfil/logado', views.exibir_perfil_logado, name='exibir_perfil_logado'),
-    path('perfil/<int:perfil_id>/convidar',views.convidar, name='convidar'),
-    path('perfil/<int:perfil_id>/remover',views.remover_amizade, name='remover_amizade'),
-    path('convite/<int:convite_id>/aceitar$',views.aceitar, name='aceitar'),
-    path('convite/<int:convite_id>/rejeitar',views.rejeitar, name='rejeitar'),
+    path('profile/<int:profile_id>', views.show_profile, name='show_profile'),
+    path('loged-profile/', views.show_loged_profile, name='show_loged_profile'),
+    path('profile/<int:profile_id>/invite', views.invite, name='invite'),
+    path('profile/<int:profile_id>/remove', views.undo_friendship, name='undo_friendship'),
+    path('invitation/<int:invitation_id>/accept', views.accept, name='accept'),
+    path('invitation/<int:invitation_id>/decline', views.decline, name='decline'),
 
 
 ]

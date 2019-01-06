@@ -15,17 +15,17 @@
                         <div class="profile-title">
                             <h3>Suggestions</h3>
                         </div>
-                        {% if perfis %}
-                        {% for perfil in perfis %}
+                        {% if profiles %}
+                        {% for profile in profiles %}
                         <div class="profile-body">
-                            <a href="{% url 'exibir' perfil.id %}">
+                            <a href="{% url 'show_profile' profile.id %}">
                             <img class="img img-responsive img-circle" src="{% static 'perfil/assets/img/17.jpeg' %}" alt="Image">
                             <div class="name-box">
-                                <h4>{{ perfil.nome }}</h4>
-                                <span>{{ perfil.usuario.email }}</span>
+                                <h4>{{ profile.name }}</h4>
+                                <span>{{ profile.user.email }}</span>
                             </div>
                             </a>
-                            <span><a href="{% url 'convidar' perfil.id %}"><i class="fa fa-plus"></i></a></span>
+                            <span><a href="{% url 'invite' profile.id %}"><i class="fa fa-plus"></i></a></span>
                         </div>
                         {% endfor %}
                         {% else %}
