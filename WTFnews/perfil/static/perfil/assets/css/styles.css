@@ -481,3 +481,93 @@ grayscale:hover {
   position:absolute;
 }
 
+/* Estilos para lista de perfis */
+.newsfeed {
+    background: #f8f8f8;
+    padding: 40px 0px;
+}
+
+.profile-box {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 5px 25px 0 rgba(123,123,123,.15);
+}
+
+.profile-box .profiles-list {
+    float: left;
+    width: 100%;
+    padding: 1% 0 5% 0;
+}
+
+.profile-title {
+    float: left;
+    width: 100%;
+    padding: 5%;
+    position: relative;
+}
+
+.profile-box .profile-body {
+    float: left;
+    width: 100%;
+    padding: 5px 20px;
+    margin-top: 2px;
+}
+
+.img {
+    width: 37px;
+    height: 37px;
+    float: left;
+    padding: 2px;
+    border: 2px solid #f4f4f4;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.profile-box .name-box {
+    float: left;
+    padding-left: 10px;
+    position: relative;
+    top: -12px;
+    padding-top: 0px !important;
+}
+
+.profile-box .profile-body> span {
+    float: right;
+    margin-top: 4px;
+    position: relative;
+    top: -12px;
+}
+
+.profile-box .profile-body > span > a i {
+    color: #b2b2b2;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.profile-box .name-box h4 {
+    font-family: 'Abhaya Libre', serif;
+    color: #88898a;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.profile-box .name-box span {
+    font-family: 'Abhaya Libre', serif;
+    font-size: 14px;
+    color: #aaa;
+}
