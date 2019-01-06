@@ -30,6 +30,7 @@ urlpatterns = [
     path('loged-profile/', views.show_loged_profile, name='show_loged_profile'),
     path('loged-profile/change-password', ChangePasswordView.as_view(), name='change_password'),
     path('profile/<int:profile_id>/invite', views.invite, name='invite'),
+    path('invite/<int:invitation_id>/cancel', views.cancel_invitation, name='cancel_invitation'),
     path('profile/<int:profile_id>/remove', views.undo_friendship, name='undo_friendship'),
     path('invitation/<int:invitation_id>/accept', views.accept, name='accept'),
     path('invitation/<int:invitation_id>/decline', views.decline, name='decline'),

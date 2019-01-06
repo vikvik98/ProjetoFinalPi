@@ -15,8 +15,8 @@
                         <div class="profile-title">
                             <h3>Suggestions</h3>
                         </div>
-                        {% if profiles %}
-                        {% for profile in profiles %}
+                        {% if suggested_profiles %}
+                        {% for profile in suggested_profiles %}
                         <div class="profile-body">
                             <a href="{% url 'show_profile' profile.id %}">
                             <img class="img img-responsive img-circle" src="{% static 'perfil/assets/img/17.jpeg' %}" alt="Image">
@@ -31,7 +31,34 @@
                         {% else %}
                         <div class="profile-body">
                             <div class="name-box">
-                                <h2>No suggestions</h2>
+                                <h4>No suggestions</h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="profile-box full-width">
+                    <div class="profiles-list">
+                        <div class="profile-title">
+                            <h3>Solicitacoes enviadas</h3>
+                        </div>
+                        {% if sent_invitations %}
+                        {% for invitation in sent_invitations %}
+                        <div class="profile-body">
+                            <a href="{% url 'show_profile' invitation.guest.id %}">
+                            <img class="img img-responsive img-circle" src="{% static 'perfil/assets/img/17.jpeg' %}" alt="Image">
+                            <div class="name-box">
+                                <h4>{{ invitation.guest.name }}</h4>
+                                <span>{{ invitation.guest.user.email }}</span>
+                            </div>
+                            </a>
+                            <span><a href="{% url 'cancel_invitation' invitation.id %}"><i class="fa fa-minus"></i></a></span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="profile-body">
+                            <div class="name-box">
+                                <h4>Nenhuma solicitação enviada</h4>
                             </div>
                         </div>
                         {% endif %}
