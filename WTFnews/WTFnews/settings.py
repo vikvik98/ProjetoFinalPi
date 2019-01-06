@@ -123,3 +123,10 @@ STATIC_URL = '/static/'
 LOGIN_URL='/login/'
 LOGOUT_URL='/logout/'
 LOGIN_REDIRECT_URL='/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "wtfnews98@gmail.com"
+EMAIL_HOST_PASSWORD = "c~vbfghnfghfghfghdfgsdfgs"
+EMAIL_PORT = 587
