@@ -1,37 +1,38 @@
 {% extends 'base_perfil.html' %}
 {% block body %}
-    <h1 align="center">Informações do Meu perfil</h1>
+    <h1 align="center">My profile</h1>
     <ul>
-        <li>Nome: {{loged_profile.name}}</li>
+        <li>Name: {{loged_profile.name}}</li>
     </ul>
+    <strong><a href="{% url 'change_password' %}">Change password</a></strong><br>
 
-    <strong>Convites de amizade</strong>
+    <strong>Friendships invitations</strong>
     {% if loged_profile.received_invitations.count %}
         {% for invitation in loged_profile.received_invitations.all %}
             <ul>
-                <li>{{invitation.inviter.name}} <a href="{% url 'accept' invitation.id %}">Aceitar</a>
-                <a href="{% url 'decline' invitation.id %}">Rejeitar</a></li>
+                <li>{{invitation.inviter.name}} <a href="{% url 'accept' invitation.id %}">Accept</a>
+                <a href="{% url 'decline' invitation.id %}">Reject</a></li>
             </ul>
         {% endfor %}
 
     {% else %}
 
-    <p>Não há nenhum convite</p>
+    <p>There is no invitation</p>
 
     {% endif %}
 
 
-    <h1>Amigos</h1>
+    <h1>Friends</h1>
     {% with quant_friends=loged_profile.friends.count %}
         {% if quant_friends %}
-            <strong>Você tem {{quant_friends}} amigo{{ quan_friends|pluralize }}</strong>
+            <strong>You have {{quant_friends}} Friend{{ quan_friends|pluralize }}</strong>
             <ul>
                 {% for friend in loged_profile.friends.all %}
                 <a href="{% url 'show_profile' friend.id %}">{{friend.name}}</a>
                 {% endfor %}
             </ul>
         {% else %}
-            <strong>Você não possui amigos</strong>
+            <strong>You do not have friends</strong>
         {% endif %}
     {% endwith %}
 
