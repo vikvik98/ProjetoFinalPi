@@ -49,7 +49,10 @@ def show_loged_profile(request):
 def invite(request, profile_id):
     guest_profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
-    loged_profile.invite(guest_profile, datetime.now())
+
+    if not Invitation.objects.filter(inviter=loged_profile, guest=guest_profile):
+        loged_profile.invite(guest_profile, datetime.now())
+
     return redirect('index')
 
 

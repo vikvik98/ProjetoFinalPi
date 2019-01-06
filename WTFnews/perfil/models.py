@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -41,7 +42,7 @@ class Invitation(models.Model):
 
     inviter = models.ForeignKey(Profile, related_name='sent_invitations', on_delete=models.CASCADE)
     guest = models.ForeignKey(Profile, related_name='received_invitations', on_delete=models.CASCADE)
-    send_date = models.DateTimeField()
+    send_date = models.DateTimeField(default=timezone.now())
 
 
     def accept(self):
