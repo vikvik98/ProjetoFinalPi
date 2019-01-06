@@ -70,5 +70,3 @@ class ChangePasswordForm(forms.Form):
     #     else:
     #         return False
 
-
-

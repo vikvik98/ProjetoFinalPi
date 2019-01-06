@@ -107,6 +107,7 @@ def undo_friendship(request, profile_id):
 #         change_passwordform = ChangePasswordForm()
 #         return render(request, 'change_password.html', {'change_passwordform': change_passwordform})
 
+
 class ChangePasswordView(View):
 
     template_name = 'change_password.html'

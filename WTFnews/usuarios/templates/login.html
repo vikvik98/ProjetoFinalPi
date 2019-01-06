@@ -24,7 +24,7 @@
         {{form.non_field_errors}}
     </div>
     {% endif %}
-    <p><a href="#" class="forgot">Forgot password?</a></p>
+    <p><a href="{% url 'password_reset' %}" class="forgot">Forgot password?</a></p>
     <p><a href="{% url 'signup' %}" class="forgot">Don't have an account? Sign-up here ...</a></p>
 </form>
 

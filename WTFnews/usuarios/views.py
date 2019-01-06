@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from perfil.models import Profile
 from usuarios.forms import SingUpForm
 
+
+
 class SingUpView(View):
 
     template_name = 'register.html'
