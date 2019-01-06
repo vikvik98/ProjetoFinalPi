@@ -1,13 +1,13 @@
 {% extends 'base_perfil.html' %}
 {% block body %}
-    <h1 align="center">Informações do perfil</h1>
+    <h1 align="center">Profile Information</h1>
     <ul>
-        <li>Nome: {{profile.name}}</li>
+        <li>Name: {{profile.name}}</li>
     </ul>
     {% if is_friend %}
-        <strong>Vocês são amigos</strong>
-        <a href="{% url 'undo_friendship' profile.id %}">Desfazer amizade</a>
+        <strong>Are you friends</strong>
+        <a href="{% url 'undo_friendship' profile.id %}">Undo friendship</a>
     {% else %}
-        <a href="{% url 'invite' profile.id %}">Convidar</a>
+        <a href="{% url 'invite' profile.id %}">Invite</a>
     {% endif %}
 {% endblock %}

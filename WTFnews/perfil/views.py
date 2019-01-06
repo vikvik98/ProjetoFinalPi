@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
+from django.views.generic.base import View
+
 from perfil.models import *
 
 
 # Create your views here.
+from usuarios.forms import ChangePasswordForm
+
 
 @login_required
 def index(request):
@@ -24,6 +29,8 @@ def index(request):
 @login_required
 def get_loged_profile(request):
     return request.user.profile
+
+
 
 
 @login_required
@@ -78,3 +85,58 @@ def undo_friendship(request, profile_id):
     loged_profile = get_loged_profile(request)
     loged_profile.friends.remove(ex_friend)
     return redirect('index')
+
+
+
+# def change_password(request):
+#     loged_profile = get_loged_profile(request)
+#     if request.method == 'POST':
+#
+#         change_passwordform = ChangePasswordForm(request.POST)
+#
+#         if change_passwordform.is_valid(loged_profile):
+#             loged_profile.set_password(change_passwordform.cleaned_data['new_password'])
+#             loged_profile.save()
+#             return redirect('loged_profile')
+#
+#         else:
+#             change_passwordform = ChangePasswordForm()
+#             return render(request, 'change_password.html', {'change_passwordform':change_passwordform})
+#
+#     else:
+#         change_passwordform = ChangePasswordForm()
+#         return render(request, 'change_password.html', {'change_passwordform': change_passwordform})
+
+class ChangePasswordView(View):
+
+    template_name = 'change_password.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        loged_profile = get_loged_profile(request)
+        change_passwordform = ChangePasswordForm(request.POST)
+        change_passwordform.valid = True
+        change_passwordform.is_valid()
+        old_password = change_passwordform.cleaned_data['old_password']
+        new_password = change_passwordform.cleaned_data['new_password']
+        co_new_password = change_passwordform.cleaned_data['co_new_password']
+        print(loged_profile.user.password)
+
+
+        if not loged_profile.user.check_password(old_password):
+            change_passwordform.add_error("The old password is not correct.")
+            change_passwordform.valid = False
+
+
+        if new_password != co_new_password:
+            change_passwordform.add_error("The new password is not the same as the password confirmation.")
+            change_passwordform.valid = False
+
+        if change_passwordform.is_valid():
+            loged_profile.user.set_password(change_passwordform.cleaned_data['new_password'])
+            loged_profile.user.save()
+            return redirect('show_loged_profile')
+
+        return render(request, self.template_name, {'form': change_passwordform})

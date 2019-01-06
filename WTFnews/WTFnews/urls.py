@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from usuarios.views import SingUpView
+from perfil.views import ChangePasswordView
 from django.contrib.auth import views as v
 from perfil import views
 
@@ -27,6 +28,7 @@ urlpatterns = [
     path('logout/', v.LogoutView.as_view(template_name='login.html'), name='logout'),
     path('profile/<int:profile_id>', views.show_profile, name='show_profile'),
     path('loged-profile/', views.show_loged_profile, name='show_loged_profile'),
+    path('loged-profile/change-password', ChangePasswordView.as_view(), name='change_password'),
     path('profile/<int:profile_id>/invite', views.invite, name='invite'),
     path('profile/<int:profile_id>/remove', views.undo_friendship, name='undo_friendship'),
     path('invitation/<int:invitation_id>/accept', views.accept, name='accept'),
