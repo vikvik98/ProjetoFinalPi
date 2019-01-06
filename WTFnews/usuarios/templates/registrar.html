@@ -4,7 +4,7 @@
 
 <form action="{% url 'registrar' %}" method="post">
     {% csrf_token %}
-    <div class="illustration"><img src="{% static 'assets/img/logo.png' %}"></div>
+    <div class="illustration"><img src="{% static 'usuarios/assets/img/logo.png' %}"></div>
     <h2 class="vvzhL ">Sign up to see photos and videos from your friends.</h2>
     <div class="form-group">
         <input class="form-control" id="id_nome" type="text" name="nome" placeholder="Username" autofocus required>
