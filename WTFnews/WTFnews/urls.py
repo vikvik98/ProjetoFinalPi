@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from usuarios.views import SingUpView
-from perfil.views import ChangePasswordView
+from perfil.views import ChangePasswordView, AddPostView
 from django.contrib.auth import views as v
 from perfil import views
 from django.contrib.auth.decorators import login_required
@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('sign-up/', SingUpView.as_view(), name='signup'),
+    path('add-post/', AddPostView.as_view(), name='add_post'),
     path('password-reset/', v.PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
     path('password-reset/done/', v.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),

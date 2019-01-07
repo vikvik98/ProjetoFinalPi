@@ -5,10 +5,13 @@ from django.db.models import Q
 from datetime import datetime
 
 from perfil.models import Profile, Invitation
+from postagens.forms import AddPostForm
+from postagens.models import Post
+from usuarios.forms import ChangePasswordForm
 
 
 # Create your views here.
-from usuarios.forms import ChangePasswordForm
+
 
 
 @login_required
@@ -26,14 +29,34 @@ def index(request):
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
+    posts = get_posts(request)
+
+
+
 
     return render(request, 'index.html', {
         'logged_profile': logged_profile,
         'suggested_profiles': suggested_profiles,
         'sent_invitations': sent_invitations,
         'received_invitations': received_invitations,
-        'logged_profile_friends': logged_profile_friends
+        'logged_profile_friends': logged_profile_friends,
+        'posts': posts
     })
+
+
+def get_posts(request):
+    posts = []
+    loged_profile = get_loged_profile(request)
+    friends = loged_profile.friends.all()
+    for friend in friends:
+        for post in friend.posts.all():
+            posts.append(post)
+
+    for post in loged_profile.posts.all():
+        posts.append(post)
+
+    return posts
+
 
 
 @login_required
@@ -122,24 +145,7 @@ def undo_friendship(request, profile_id):
 
 
 
-# def change_password(request):
-#     loged_profile = get_loged_profile(request)
-#     if request.method == 'POST':
-#
-#         change_passwordform = ChangePasswordForm(request.POST)
-#
-#         if change_passwordform.is_valid(loged_profile):
-#             loged_profile.set_password(change_passwordform.cleaned_data['new_password'])
-#             loged_profile.save()
-#             return redirect('loged_profile')
-#
-#         else:
-#             change_passwordform = ChangePasswordForm()
-#             return render(request, 'change_password.html', {'change_passwordform':change_passwordform})
-#
-#     else:
-#         change_passwordform = ChangePasswordForm()
-#         return render(request, 'change_password.html', {'change_passwordform': change_passwordform})
+
 
 
 class ChangePasswordView(View):
@@ -157,7 +163,7 @@ class ChangePasswordView(View):
         old_password = change_passwordform.cleaned_data['old_password']
         new_password = change_passwordform.cleaned_data['new_password']
         co_new_password = change_passwordform.cleaned_data['co_new_password']
-        print(loged_profile.user.password)
+
 
 
         if not loged_profile.user.check_password(old_password):
@@ -177,6 +183,29 @@ class ChangePasswordView(View):
         return render(request, self.template_name, {'form': change_passwordform})
 
 
+
+class AddPostView(View):
+
+    template_post = 'add_post.html'
+
+    def get(self,request):
+        return render(request, self.template_post)
+
+    def post(self, request):
+        add_postform = AddPostForm(request.POST)
+        if add_postform.is_valid():
+            print(add_postform.cleaned_data['text'])
+            post = Post(content=add_postform.cleaned_data['text'], date=datetime.now())
+            post.profile = get_loged_profile(request)
+            post.save()
+            return redirect('index')
+
+        return render(request, self.template_post, {'form': add_postform})
+
+
+
+
+
 def make_superuser(request, profile_id):
     if not request.user.is_superuser:
         raise PermissionError
@@ -192,3 +221,4 @@ def give_up_superuser(request):
     request.user.save()
 
     return redirect('show_loged_profile')
+
