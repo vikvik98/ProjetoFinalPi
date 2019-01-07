@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.base import View
+from django.db.models import Q
 from datetime import datetime
 
 from perfil.models import Profile, Invitation
@@ -44,11 +45,28 @@ def get_loged_profile(request):
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
+    invitation = Invitation.objects.filter(
+        (Q(guest=profile) & Q(inviter=loged_profile)) |
+        (Q(guest=loged_profile) & Q(inviter=profile))
+    )
+
     is_friend = profile in loged_profile.friends.all()
+    is_guest = False
+    is_inviter = False
+
+    if not is_friend and invitation:
+        invitation = invitation[0]
+        if invitation.guest == profile:
+            is_guest = True
+        elif invitation.inviter == profile:
+            is_inviter = True
 
     return render(request, 'profile.html',
                   {'profile': profile,
-                   'is_friend':is_friend})
+                   'invitation': invitation,
+                   'is_friend': is_friend,
+                   'is_guest': is_guest,
+                   'is_inviter': is_inviter})
 
 
 @login_required
