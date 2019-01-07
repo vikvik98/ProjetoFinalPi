@@ -1,8 +1,9 @@
 from django import forms
 
-class AddPostForm(forms.Form):
-    content = forms.CharField(required=True)
 
+
+class AddPostForm(forms.Form):
+    text = forms.CharField(required=True)
 
     def is_valid(self):
         valid = True
@@ -10,10 +11,11 @@ class AddPostForm(forms.Form):
             self.add_error('Please, Check the reported data.')
             valid = False
 
-        return valid
 
+        return valid
 
     def add_error(self, message):
         errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
                                          forms.utils.ErrorList())
+
         errors.append(message)

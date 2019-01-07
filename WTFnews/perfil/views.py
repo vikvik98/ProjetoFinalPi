@@ -5,12 +5,13 @@ from django.db.models import Q
 from datetime import datetime
 
 from perfil.models import Profile, Invitation
-
-
-# Create your views here.
 from postagens.forms import AddPostForm
 from postagens.models import Post
 from usuarios.forms import ChangePasswordForm
+
+
+# Create your views here.
+
 
 
 @login_required
@@ -28,7 +29,10 @@ def index(request):
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
-    all_posts = Post.objects.all()
+    posts = get_posts(request)
+
+
+
 
     return render(request, 'index.html', {
         'logged_profile': logged_profile,
@@ -36,8 +40,23 @@ def index(request):
         'sent_invitations': sent_invitations,
         'received_invitations': received_invitations,
         'logged_profile_friends': logged_profile_friends,
-        'all_posts': all_posts
+        'posts': posts
     })
+
+
+def get_posts(request):
+    posts = []
+    loged_profile = get_loged_profile(request)
+    friends = loged_profile.friends.all()
+    for friend in friends:
+        for post in friend.posts.all():
+            posts.append(post)
+
+    for post in loged_profile.posts.all():
+        posts.append(post)
+
+    return posts
+
 
 
 @login_required
@@ -48,13 +67,13 @@ def get_loged_profile(request):
 @login_required
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
-    loged_profile = get_loged_profile(request)
+    logged_profile = get_loged_profile(request)
     invitation = Invitation.objects.filter(
-        (Q(guest=profile) & Q(inviter=loged_profile)) |
-        (Q(guest=loged_profile) & Q(inviter=profile))
+        (Q(guest=profile) & Q(inviter=logged_profile)) |
+        (Q(guest=logged_profile) & Q(inviter=profile))
     )
 
-    is_friend = profile in loged_profile.friends.all()
+    is_friend = profile in logged_profile.friends.all()
     is_guest = False
     is_inviter = False
 
@@ -67,6 +86,7 @@ def show_profile(request, profile_id):
 
     return render(request, 'profile.html',
                   {'profile': profile,
+                   'logged_profile': logged_profile,
                    'invitation': invitation,
                    'is_friend': is_friend,
                    'is_guest': is_guest,
@@ -125,24 +145,7 @@ def undo_friendship(request, profile_id):
 
 
 
-# def change_password(request):
-#     loged_profile = get_loged_profile(request)
-#     if request.method == 'POST':
-#
-#         change_passwordform = ChangePasswordForm(request.POST)
-#
-#         if change_passwordform.is_valid(loged_profile):
-#             loged_profile.set_password(change_passwordform.cleaned_data['new_password'])
-#             loged_profile.save()
-#             return redirect('loged_profile')
-#
-#         else:
-#             change_passwordform = ChangePasswordForm()
-#             return render(request, 'change_password.html', {'change_passwordform':change_passwordform})
-#
-#     else:
-#         change_passwordform = ChangePasswordForm()
-#         return render(request, 'change_password.html', {'change_passwordform': change_passwordform})
+
 
 
 class ChangePasswordView(View):
@@ -160,7 +163,7 @@ class ChangePasswordView(View):
         old_password = change_passwordform.cleaned_data['old_password']
         new_password = change_passwordform.cleaned_data['new_password']
         co_new_password = change_passwordform.cleaned_data['co_new_password']
-        print(loged_profile.user.password)
+
 
 
         if not loged_profile.user.check_password(old_password):
@@ -180,19 +183,42 @@ class ChangePasswordView(View):
         return render(request, self.template_name, {'form': change_passwordform})
 
 
+
 class AddPostView(View):
 
-    template_name = 'add_post.html'
+    template_post = 'add_post.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self,request):
+        return render(request, self.template_post)
 
     def post(self, request):
-        form = AddPostForm(request.POST)
-        if form.is_valid():
-            post = Post.objects.create(content=form.cleaned_data['content'], date= datetime.now())
+        add_postform = AddPostForm(request.POST)
+        if add_postform.is_valid():
+            print(add_postform.cleaned_data['text'])
+            post = Post(content=add_postform.cleaned_data['text'], date=datetime.now())
             post.profile = get_loged_profile(request)
             post.save()
             return redirect('index')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_post, {'form': add_postform})
+
+
+
+
+
+def make_superuser(request, profile_id):
+    if not request.user.is_superuser:
+        raise PermissionError
+
+    profile = Profile.objects.get(id=profile_id)
+    profile.change_to_superuser()
+
+    return redirect('show_profile', profile_id)
+
+
+def give_up_superuser(request):
+    request.user.is_superuser = False
+    request.user.save()
+
+    return redirect('show_loged_profile')
+

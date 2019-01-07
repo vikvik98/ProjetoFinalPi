@@ -99,8 +99,8 @@
         </div>
     </div>
     <h1>Posts</h1>
-    {% if post.count %}
-        {% for post in all_posts %}
+    {% if posts %}
+        {% for post in posts %}
         <ul>
             <li>Profile name: {{ post.profile.name }}</li>
             <li>Post: {{ post.content }}</li>
