@@ -8,6 +8,8 @@ from perfil.models import Profile, Invitation
 
 
 # Create your views here.
+from postagens.forms import AddPostForm
+from postagens.models import Post
 from usuarios.forms import ChangePasswordForm
 
 
@@ -26,13 +28,15 @@ def index(request):
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
+    all_posts = Post.objects.all()
 
     return render(request, 'index.html', {
         'logged_profile': logged_profile,
         'suggested_profiles': suggested_profiles,
         'sent_invitations': sent_invitations,
         'received_invitations': received_invitations,
-        'logged_profile_friends': logged_profile_friends
+        'logged_profile_friends': logged_profile_friends,
+        'all_posts': all_posts
     })
 
 
@@ -174,3 +178,21 @@ class ChangePasswordView(View):
             return redirect('show_loged_profile')
 
         return render(request, self.template_name, {'form': change_passwordform})
+
+
+class AddPostView(View):
+
+    template_name = 'add_post.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            post = Post.objects.create(content=form.cleaned_data['content'], date= datetime.now())
+            post.profile = get_loged_profile(request)
+            post.save()
+            return redirect('index')
+
+        return render(request, self.template_name, {'form': form})

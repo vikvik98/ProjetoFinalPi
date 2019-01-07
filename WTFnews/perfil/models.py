@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+
+
 class Profile(models.Model):
 
     name = models.CharField(max_length=80)
@@ -12,6 +14,8 @@ class Profile(models.Model):
     guests_profiles = models.ManyToManyField('self', through='Invitation',
                                              related_name='inviters_profiles',
                                              symmetrical=False)
+
+
 
     def invite(self, invited_profile, date):
         if (invited_profile not in self.guests_profiles.all()) and\
