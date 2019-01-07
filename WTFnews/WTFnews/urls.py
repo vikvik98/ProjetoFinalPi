@@ -44,6 +44,8 @@ urlpatterns = [
     path('profile/<int:profile_id>/remove', views.undo_friendship, name='undo_friendship'),
     path('invitation/<int:invitation_id>/accept', views.accept, name='accept'),
     path('invitation/<int:invitation_id>/decline', views.decline, name='decline'),
+    path('profile/<int:profile_id>/make-superuser', views.make_superuser, name='make_superuser'),
+    path('profile-logged/give-up-superuser', views.give_up_superuser, name='give_up_superuser'),
 
 
 ]

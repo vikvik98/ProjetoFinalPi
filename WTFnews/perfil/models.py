@@ -13,6 +13,17 @@ class Profile(models.Model):
                                              related_name='inviters_profiles',
                                              symmetrical=False)
 
+    def is_superuser(self):
+        return self.user.is_superuser
+
+    def change_to_superuser(self):
+        self.user.is_superuser = True
+        self.user.save()
+
+    def give_up_superuser(self):
+        self.user.is_superuser = False
+        self.user.save()
+
     def invite(self, invited_profile, date):
         if (invited_profile not in self.guests_profiles.all()) and\
                 (invited_profile not in self.inviters_profiles.all()):

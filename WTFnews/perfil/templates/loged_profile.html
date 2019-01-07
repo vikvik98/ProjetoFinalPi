@@ -35,7 +35,13 @@
             <strong>You do not have friends</strong>
         {% endif %}
     {% endwith %}
-
+    <br>
+    {% if loged_profile.is_superuser %}
+    <strong>Você eh superusuário. </strong>
+    <a href="{% url 'give_up_superuser' %}">Deixar de ser</a>
+    {% else %}
+    <strong>Vc não é superusuario.</strong>
+    {% endif %}
 
 
 
