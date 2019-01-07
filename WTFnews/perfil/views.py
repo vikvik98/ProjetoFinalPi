@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.generic.base import View
+from django.db.models import Q
 from datetime import datetime
 
-from django.views.generic.base import View
-
-from perfil.models import *
+from perfil.models import Profile, Invitation
 
 
 # Create your views here.
@@ -13,17 +13,27 @@ from usuarios.forms import ChangePasswordForm
 
 @login_required
 def index(request):
-    loged_profile = get_loged_profile(request)
-    all_profiles = Profile.objects.exclude(name=loged_profile.name)
-    loged_profile_friends = loged_profile.friends.all()
-    profiles = []
 
-    for profile in all_profiles:
-        if profile not in loged_profile_friends:
-            profiles.append(profile)
+    logged_profile = get_loged_profile(request)
+    logged_profile_friends = logged_profile.friends.all()
+    inviters_profiles = logged_profile.inviters_profiles.all()
+    guests_profiles = logged_profile.guests_profiles.all()
 
-    return render(request, 'index.html', {'loged_profile': loged_profile,
-                                          'profiles': profiles})
+    suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
+        .exclude(id__in=guests_profiles)\
+        .exclude(id__in=logged_profile_friends)\
+        .exclude(id=logged_profile.id)
+
+    sent_invitations = logged_profile.sent_invitations.all()
+    received_invitations = logged_profile.received_invitations.all()
+
+    return render(request, 'index.html', {
+        'logged_profile': logged_profile,
+        'suggested_profiles': suggested_profiles,
+        'sent_invitations': sent_invitations,
+        'received_invitations': received_invitations,
+        'logged_profile_friends': logged_profile_friends
+    })
 
 
 @login_required
@@ -31,17 +41,32 @@ def get_loged_profile(request):
     return request.user.profile
 
 
-
-
 @login_required
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
+    invitation = Invitation.objects.filter(
+        (Q(guest=profile) & Q(inviter=loged_profile)) |
+        (Q(guest=loged_profile) & Q(inviter=profile))
+    )
+
     is_friend = profile in loged_profile.friends.all()
+    is_guest = False
+    is_inviter = False
+
+    if not is_friend and invitation:
+        invitation = invitation[0]
+        if invitation.guest == profile:
+            is_guest = True
+        elif invitation.inviter == profile:
+            is_inviter = True
 
     return render(request, 'profile.html',
                   {'profile': profile,
-                   'is_friend':is_friend})
+                   'invitation': invitation,
+                   'is_friend': is_friend,
+                   'is_guest': is_guest,
+                   'is_inviter': is_inviter})
 
 
 @login_required
@@ -57,8 +82,16 @@ def invite(request, profile_id):
     guest_profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
 
-    if not Invitation.objects.filter(inviter=loged_profile, guest=guest_profile):
-        loged_profile.invite(guest_profile, datetime.now())
+    loged_profile.invite(guest_profile, datetime.now())
+
+    return redirect('index')
+
+
+def cancel_invitation(request, invitation_id):
+    invitation = Invitation.objects.get(id=invitation_id)
+    logged_profile = get_loged_profile(request)
+
+    logged_profile.cancel_invitation(invitation)
 
     return redirect('index')
 

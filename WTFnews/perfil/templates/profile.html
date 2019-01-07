@@ -5,8 +5,15 @@
         <li>Name: {{profile.name}}</li>
     </ul>
     {% if is_friend %}
-        <strong>Are you friends</strong>
+        <strong>Are you friends </strong>
         <a href="{% url 'undo_friendship' profile.id %}">Undo friendship</a>
+    {% elif is_guest %}
+        <strong>Vc enviou uma solicitação: </strong>
+        <a href="{% url 'cancel_invitation' invitation.id %}">Cancelar solicitação</a>
+    {% elif is_inviter %}
+        <strong>Esta pessoa envio uma solicitação: </strong>
+        <a href="{% url 'accept' invitation.id %}">Aceitar </a>
+        <a href="{% url 'decline' invitation.id %}">Recusar </a>
     {% else %}
         <a href="{% url 'invite' profile.id %}">Invite</a>
     {% endif %}
