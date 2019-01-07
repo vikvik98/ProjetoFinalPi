@@ -8,24 +8,24 @@
         <strong>Are you friends </strong>
         <a href="{% url 'undo_friendship' profile.id %}">Undo friendship</a>
     {% elif is_guest %}
-        <strong>Vc enviou uma solicitação: </strong>
-        <a href="{% url 'cancel_invitation' invitation.id %}">Cancelar solicitação</a>
+        <strong>You send a invitation: </strong>
+        <a href="{% url 'cancel_invitation' invitation.id %}">Cancel invitation</a>
     {% elif is_inviter %}
-        <strong>Esta pessoa envio uma solicitação: </strong>
-        <a href="{% url 'accept' invitation.id %}">Aceitar </a>
-        <a href="{% url 'decline' invitation.id %}">Recusar </a>
+        <strong>This people send a invitation: </strong>
+        <a href="{% url 'accept' invitation.id %}">Accept </a>
+        <a href="{% url 'decline' invitation.id %}">Reject </a>
     {% else %}
         <a href="{% url 'invite' profile.id %}">Invite</a>
     {% endif %}
     <br>
     {% if profile.is_superuser %}
-    <strong>Este perfil é superusuário</strong>
+    <strong>This profile is a super user</strong>
 
     {% else %}
-    <strong>Este perfil não é superusuário. </strong>
+    <strong>This profile is not a super user </strong>
     {% if logged_profile.is_superuser %}
     <br/>
-    <a href="{% url 'make_superuser' profile.id %}">Torna-lo super usuário</a>
+    <a href="{% url 'make_superuser' profile.id %}">make him a super user</a>
     {% endif %}
     {% endif %}
 

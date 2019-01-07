@@ -54,6 +54,11 @@ class Profile(models.Model):
         return False
 
 
+    def delete_post(self, post):
+        if post in self.posts.all():
+            post.delete()
+
+
 class Invitation(models.Model):
 
     inviter = models.ForeignKey(Profile, related_name='sent_invitations', on_delete=models.CASCADE)

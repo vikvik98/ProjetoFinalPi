@@ -222,3 +222,9 @@ def give_up_superuser(request):
 
     return redirect('show_loged_profile')
 
+
+def delete_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    loged_profile = get_loged_profile(request)
+    loged_profile.delete_post(post)
+    return redirect('index')
