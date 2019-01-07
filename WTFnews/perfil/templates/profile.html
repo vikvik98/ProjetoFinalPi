@@ -17,4 +17,16 @@
     {% else %}
         <a href="{% url 'invite' profile.id %}">Invite</a>
     {% endif %}
+    <br>
+    {% if profile.is_superuser %}
+    <strong>Este perfil é superusuário</strong>
+
+    {% else %}
+    <strong>Este perfil não é superusuário. </strong>
+    {% if logged_profile.is_superuser %}
+    <br/>
+    <a href="{% url 'make_superuser' profile.id %}">Torna-lo super usuário</a>
+    {% endif %}
+    {% endif %}
+
 {% endblock %}

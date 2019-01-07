@@ -44,13 +44,13 @@ def get_loged_profile(request):
 @login_required
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
-    loged_profile = get_loged_profile(request)
+    logged_profile = get_loged_profile(request)
     invitation = Invitation.objects.filter(
-        (Q(guest=profile) & Q(inviter=loged_profile)) |
-        (Q(guest=loged_profile) & Q(inviter=profile))
+        (Q(guest=profile) & Q(inviter=logged_profile)) |
+        (Q(guest=logged_profile) & Q(inviter=profile))
     )
 
-    is_friend = profile in loged_profile.friends.all()
+    is_friend = profile in logged_profile.friends.all()
     is_guest = False
     is_inviter = False
 
@@ -63,6 +63,7 @@ def show_profile(request, profile_id):
 
     return render(request, 'profile.html',
                   {'profile': profile,
+                   'logged_profile': logged_profile,
                    'invitation': invitation,
                    'is_friend': is_friend,
                    'is_guest': is_guest,
@@ -174,3 +175,20 @@ class ChangePasswordView(View):
             return redirect('show_loged_profile')
 
         return render(request, self.template_name, {'form': change_passwordform})
+
+
+def make_superuser(request, profile_id):
+    if not request.user.is_superuser:
+        raise PermissionError
+
+    profile = Profile.objects.get(id=profile_id)
+    profile.change_to_superuser()
+
+    return redirect('show_profile', profile_id)
+
+
+def give_up_superuser(request):
+    request.user.is_superuser = False
+    request.user.save()
+
+    return redirect('show_loged_profile')
