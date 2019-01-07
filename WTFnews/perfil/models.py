@@ -15,6 +15,9 @@ class Profile(models.Model):
                                              related_name='inviters_profiles',
                                              symmetrical=False)
 
+    blocked = models.ManyToManyField('self', related_name='blockers',
+                                     symmetrical=False)
+
     def is_superuser(self):
         return self.user.is_superuser
 
