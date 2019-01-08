@@ -51,6 +51,7 @@ urlpatterns = [
     path('block-user/<int:profile_id>', views.block_user, name='block_user'),
     path('unblock-user/<int:profile_id>', views.unblock_user, name='unblock_user'),
     path('blockers-profile/', views.show_blockers_profile, name='blockers_profile'),
+    path('search-profile/', views.search_profile, name='search_profile'),
 
 
 ]

@@ -4,54 +4,54 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>WTFnews</title>
-    <link rel="stylesheet" href="{% static 'perfil/assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'perfil/assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'perfil/assets/css/Login-Form-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'perfil/assets/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'perfil/assets/fonts/ionicons.min.css' %}">
+    <link href="{% static 'perfil/assets/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'perfil/assets/fonts/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'perfil/assets/css/Login-Form-Clean.css' %}" rel="stylesheet">
+    <link href="{% static 'perfil/assets/css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'perfil/assets/fonts/ionicons.min.css' %}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid header-top">
-        <div class="col-md-12" style="padding:0px;">
-            <div class="top-menu-logo">
-                <a href="/">
-                    <img src="{% static 'perfil/assets/img/logo.png' %}" class="center-block"
-                         style="height:40px;margin:2%">
+<div class="container-fluid header-top">
+    <div class="col-md-12" style="padding:0px;">
+        <div class="top-menu-logo">
+            <a href="/">
+                <img class="center-block" src="{% static 'perfil/assets/img/logo.png' %}"
+                     style="height:40px;margin:2%">
+            </a>
+            <div class="menu-buttons">
+                <a href="{% url 'add_post' %}">
+                    <button class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
                 </a>
-                <div class="menu-buttons">
-                    <a href="{% url 'add_post' %}">
-                        <button class="btn btn-default" type="button">
-                            <i class="glyphicon glyphicon-plus"></i>
-                        </button>
-                    </a>
-                    <a href="#">
-                        <button class="btn btn-default" type="button">
-                            <i class="glyphicon glyphicon-heart"></i>
-                        </button>
-                    </a>
-                    <a href="{% url 'show_loged_profile' %}">
-                        <button class="btn btn-default" type="button">
-                            <i class="glyphicon glyphicon-user"></i>
-                        </button>
-                    </a>
-                    <a href="{% url 'logout' %}">
-                        <button class="btn btn-default" type="button">
-                            <i class="glyphicon glyphicon-log-out"></i>
-                        </button>
-                    </a>
-                </div>
+                <a href="#">
+                    <button class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-heart"></i>
+                    </button>
+                </a>
+                <a href="{% url 'show_loged_profile' %}">
+                    <button class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </button>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <button class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-log-out"></i>
+                    </button>
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
 
-    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>

@@ -1,0 +1,16 @@
+{% extends 'base_perfil.html' %}
+{% block body %}
+    <h1 align="center">Search Result</h1>
+    {% if search_profiles %}
+        {% for profile in search_profiles %}
+    <ul>
+        <li><a href="{% url 'show_profile' profile.id %}"> Name: {{profile.name}}</a></li>
+    </ul>
+        {% endfor %}
+    {% else %}
+    <strong>No profile found</strong>
+    {% endif %}
+
+
+
+{% endblock %}
