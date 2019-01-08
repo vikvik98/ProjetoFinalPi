@@ -22,17 +22,22 @@ def index(request):
     inviters_profiles = logged_profile.inviters_profiles.all()
     guests_profiles = logged_profile.guests_profiles.all()
     blocked_list = logged_profile.blocked.all()
+    blockers_list = logged_profile.blockers.all()
+
 
     suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
         .exclude(id__in=guests_profiles)\
         .exclude(id__in=logged_profile_friends) \
         .exclude(id__in=blocked_list)\
+        .exclude(id__in=blockers_list)\
         .exclude(id=logged_profile.id)\
 
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
+
+
 
 
 
@@ -46,7 +51,7 @@ def index(request):
         'posts': posts
     })
 
-
+@login_required
 def get_posts(request):
     posts = []
     loged_profile = get_loged_profile(request)
@@ -74,6 +79,9 @@ def show_profile(request, profile_id):
 
     if profile.id == logged_profile.id:
         return show_loged_profile(request)
+
+    if profile in logged_profile.blockers.all():
+        return show_blockers_profile(request)
 
 
     invitation = Invitation.objects.filter(
@@ -118,7 +126,7 @@ def invite(request, profile_id):
 
     return redirect('index')
 
-
+@login_required
 def cancel_invitation(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_loged_profile(request)
@@ -213,7 +221,7 @@ class AddPostView(View):
 
 
 
-
+@login_required
 def make_superuser(request, profile_id):
     if not request.user.is_superuser:
         raise PermissionError
@@ -223,21 +231,21 @@ def make_superuser(request, profile_id):
 
     return redirect('show_profile', profile_id)
 
-
+@login_required
 def give_up_superuser(request):
     request.user.is_superuser = False
     request.user.save()
 
     return redirect('show_loged_profile')
 
-
+@login_required
 def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
     loged_profile = get_loged_profile(request)
     loged_profile.delete_post(post)
     return redirect('index')
 
-
+@login_required
 def block_user(request, profile_id):
     profile_blocked = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
@@ -245,7 +253,7 @@ def block_user(request, profile_id):
     undo_friendship(request,profile_blocked.id)
     return redirect('index')
 
-
+@login_required
 def unblock_user(request, profile_id):
     unblock_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_loged_profile(request)
@@ -253,3 +261,7 @@ def unblock_user(request, profile_id):
     logged_profile.friends.add(unblock_profile)
 
     return redirect('index')
+
+@login_required
+def show_blockers_profile(request):
+    return render(request, 'blockers_profile.html')

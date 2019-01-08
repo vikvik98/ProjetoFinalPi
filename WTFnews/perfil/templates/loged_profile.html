@@ -37,10 +37,10 @@
     {% endwith %}
     <br>
     {% if loged_profile.is_superuser %}
-    <strong>Você eh superusuário. </strong>
-    <a href="{% url 'give_up_superuser' %}">Deixar de ser</a>
+    <strong>You are a super user. </strong>
+    <a href="{% url 'give_up_superuser' %}">Stop being</a>
     {% else %}
-    <strong>Vc não é superusuario.</strong>
+    <strong>You are not a super user</strong>
     {% endif %}
 
 
