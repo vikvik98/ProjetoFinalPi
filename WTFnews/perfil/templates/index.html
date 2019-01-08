@@ -14,7 +14,7 @@
                     <div class="profile-title">
                         <h3>Friends</h3>
                     </div>
-                    <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+                    <div class="profiles-list" style="overflow-y:scroll;">
 
                         {% if logged_profile_friends %}
                         {% for profile in logged_profile_friends %}
@@ -28,6 +28,9 @@
                                     <span>{{ profile.user.email }}</span>
                                 </div>
                             </a>
+                            <span><a href="{% url 'undo_friendship' profile.id %}">
+                                    <i class="fa fa-minus"></i>
+                            </a></span>
                         </div>
                         {% endfor %}
                         {% else %}
@@ -94,7 +97,7 @@
 
                     </div>
 
-                    <div class="profiles-list" style="overflow-y:scroll; height: 180px" >
+                    <div class="profiles-list" style="overflow-y:scroll;" >
 
                         {% if suggested_profiles %}
                         {% for profile in suggested_profiles %}
@@ -125,7 +128,7 @@
                     <div class="profile-title">
                             <h3>Submitted requests</h3>
                         </div>
-                    <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+                    <div class="profiles-list" style="overflow-y:scroll;">
 
                         {% if sent_invitations %}
                         {% for invitation in sent_invitations %}
@@ -155,7 +158,7 @@
                     <div class="profile-title">
                         <h3>Requests received</h3>
                     </div>
-                    <div class="profiles-list" style="overflow-y:scroll; height: 220px">
+                    <div class="profiles-list" style="overflow-y:scroll;">
 
                         {% if received_invitations %}
                         {% for invitation in received_invitations %}

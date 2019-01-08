@@ -5,12 +5,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <aside class="col-xs-12 col-md-6">
+        <div class="col-lg-4"></div>
+        <div class="col-xs-12 col-md-4">
             <div class="profile-box full-width">
-                <div class="profile-title">
-                    <h3>Friends</h3>
-                </div>
-                <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+                <div class="profiles-list" style="overflow-y:scroll;
+                 min-height: 100px; max-height: 300px">
                     {% if search_profiles %}
                     {% for profile in search_profiles %}
                     <div class="profile-body">
@@ -35,11 +34,9 @@
 
                 </div>
             </div>
-        </aside>
+        </div>
     </div>
 </div>
-
-
 
 
 {% endblock %}

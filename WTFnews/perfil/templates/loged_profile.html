@@ -48,7 +48,7 @@
                 <div class="profile-title">
                     <h3>Friends</h3>
                 </div>
-                <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+                <div class="profiles-list" style="overflow-y:scroll;">
                     {% if friends_list %}
                     {% for profile in friends_list %}
                     <div class="profile-body">
@@ -56,11 +56,14 @@
                             <img alt="Image"
                                  class="img img-responsive img-circle"
                                  src="{% static 'perfil/assets/img/profile.png' %}">
-                            <div class="name-box">
+                            <div class="name-box" style="overflow: unset;">
                                 <h4>{{ profile.name }}</h4>
                                 <span>{{ profile.user.email }}</span>
                             </div>
                         </a>
+                        <span><a href="{% url 'undo_friendship' profile.id %}">
+                            <i class="fa fa-minus"></i>
+                        </a></span>
                     </div>
                     {% endfor %}
                     {% else %}
@@ -123,7 +126,7 @@
                 <div class="profile-title">
                     <h3>Blokeds</h3>
                 </div>
-                <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+                <div class="profiles-list" style="overflow-y:scroll;">
                     {% if blocked_list %}
                     {% for profile in blocked_list %}
                     <div class="profile-body">

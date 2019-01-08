@@ -53,6 +53,13 @@ body {
     padding-top: 0px !important;
 }
 
+.name-box {
+max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .post-box .post-body > span {
     float: right;
     margin-top: 4px;
@@ -577,6 +584,7 @@ grayscale:hover {
 }
 
 .profile-box {
+    min-height:150px;
     float: left;
     width: 100%;
     background-color: #fff;
