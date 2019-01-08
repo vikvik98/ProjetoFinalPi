@@ -142,7 +142,7 @@ body {
 
 .img-container {
   margin-top:10px;
-  width:600px;
+  width:100%;
   position:relative;
   padding-left:0px;
   padding-right:0px;
@@ -659,4 +659,14 @@ grayscale:hover {
     font-family: 'Abhaya Libre', serif;
     font-size: 14px;
     color: #88898a;
+}
+
+#centro {
+    width:100px;
+    height:100px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-50px;
+    margin-left:-50px;
 }
