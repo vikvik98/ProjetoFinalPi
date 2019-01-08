@@ -48,6 +48,8 @@ urlpatterns = [
     path('profile/<int:profile_id>/make-superuser', views.make_superuser, name='make_superuser'),
     path('profile-logged/give-up-superuser', views.give_up_superuser, name='give_up_superuser'),
     path('delete/<int:post_id>', views.delete_post, name='delete_post'),
+    path('block-user/<int:profile_id>', views.block_user, name='block_user'),
+    path('unblock-user/<int:profile_id>', views.unblock_user, name='unblock_user'),
 
 
 ]

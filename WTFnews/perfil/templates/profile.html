@@ -1,32 +1,39 @@
 {% extends 'base_perfil.html' %}
 {% block body %}
-    <h1 align="center">Profile Information</h1>
-    <ul>
-        <li>Name: {{profile.name}}</li>
-    </ul>
-    {% if is_friend %}
-        <strong>Are you friends </strong>
-        <a href="{% url 'undo_friendship' profile.id %}">Undo friendship</a>
-    {% elif is_guest %}
-        <strong>You send a invitation: </strong>
-        <a href="{% url 'cancel_invitation' invitation.id %}">Cancel invitation</a>
-    {% elif is_inviter %}
-        <strong>This people send a invitation: </strong>
-        <a href="{% url 'accept' invitation.id %}">Accept </a>
-        <a href="{% url 'decline' invitation.id %}">Reject </a>
-    {% else %}
-        <a href="{% url 'invite' profile.id %}">Invite</a>
-    {% endif %}
-    <br>
-    {% if profile.is_superuser %}
-    <strong>This profile is a super user</strong>
+<h1 align="center">Profile Information</h1>
+<ul>
+    <li>Name: {{profile.name}}</li>
+</ul>
+{% if is_friend %}
+<strong>Are you friends </strong>
+<a href="{% url 'undo_friendship' profile.id %}">Undo friendship</a>
+{% elif is_guest %}
+<strong>You send a invitation: </strong>
+<a href="{% url 'cancel_invitation' invitation.id %}">Cancel invitation</a>
+{% elif is_inviter %}
+<strong>This people send a invitation: </strong>
+<a href="{% url 'accept' invitation.id %}">Accept </a>
+<a href="{% url 'decline' invitation.id %}">Reject </a>
+{% else %}
+{% if not profile in logged_profile.blocked.all %}
+<a href="{% url 'invite' profile.id %}">Invite</a>
+{% endif %}
+{% endif %}
+<br>
+{% if profile.is_superuser %}
+<strong>This profile is a super user</strong>
 
-    {% else %}
-    <strong>This profile is not a super user </strong>
-    {% if logged_profile.is_superuser %}
-    <br/>
-    <a href="{% url 'make_superuser' profile.id %}">make him a super user</a>
-    {% endif %}
-    {% endif %}
+{% else %}
+<strong>This profile is not a super user </strong>
+{% if logged_profile.is_superuser %}
+<br/>
+<a href="{% url 'make_superuser' profile.id %}">make him a super user</a>
+{% endif %}
+{% endif %}
+{% if profile in logged_profile.blocked.all %}
+<br><a href="{% url 'unblock_user' profile.id %}">Unblock User</a>
+{% else %}
+<br><a href="{% url 'block_user' profile.id %}">Block User</a>
+{% endif %}
 
 {% endblock %}

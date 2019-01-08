@@ -21,11 +21,14 @@ def index(request):
     logged_profile_friends = logged_profile.friends.all()
     inviters_profiles = logged_profile.inviters_profiles.all()
     guests_profiles = logged_profile.guests_profiles.all()
+    blocked_list = logged_profile.blocked.all()
 
     suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
         .exclude(id__in=guests_profiles)\
-        .exclude(id__in=logged_profile_friends)\
-        .exclude(id=logged_profile.id)
+        .exclude(id__in=logged_profile_friends) \
+        .exclude(id__in=blocked_list)\
+        .exclude(id=logged_profile.id)\
+
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
@@ -68,6 +71,11 @@ def get_loged_profile(request):
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     logged_profile = get_loged_profile(request)
+
+    if profile.id == logged_profile.id:
+        return show_loged_profile(request)
+
+
     invitation = Invitation.objects.filter(
         (Q(guest=profile) & Q(inviter=logged_profile)) |
         (Q(guest=logged_profile) & Q(inviter=profile))
@@ -227,4 +235,21 @@ def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
     loged_profile = get_loged_profile(request)
     loged_profile.delete_post(post)
+    return redirect('index')
+
+
+def block_user(request, profile_id):
+    profile_blocked = Profile.objects.get(id=profile_id)
+    loged_profile = get_loged_profile(request)
+    loged_profile.blocked.add(profile_blocked)
+    undo_friendship(request,profile_blocked.id)
+    return redirect('index')
+
+
+def unblock_user(request, profile_id):
+    unblock_profile = Profile.objects.get(id=profile_id)
+    logged_profile = get_loged_profile(request)
+    logged_profile.blocked.remove(unblock_profile)
+    logged_profile.friends.add(unblock_profile)
+
     return redirect('index')
