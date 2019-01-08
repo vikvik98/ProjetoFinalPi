@@ -5,7 +5,36 @@
 <section class="newsfeed">
     <div class="container-fluid">
         <div class="row">
-            <aside class="col-xs-12 col-md-3"></aside>
+            <aside class="col-xs-12 col-md-3">
+                <div class="profile-box full-width">
+                    <div class="profiles-list">
+                        <div class="profile-title">
+                            <h3>Friends</h3>
+                        </div>
+                        {% if logged_profile_friends %}
+                        {% for profile in logged_profile_friends %}
+                        <div class="profile-body">
+                            <a href="{% url 'show_profile' profile.id %}">
+                                <img alt="Image"
+                                     class="img img-responsive img-circle"
+                                     src="{% static 'perfil/assets/img/default.png' %}">
+                                <div class="name-box">
+                                    <h4>{{ profile.name }}</h4>
+                                    <span>{{ profile.user.email }}</span>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="profile-body">
+                            <div class="name-box">
+                                <h4>You have no friends! :( </h4>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </aside>
             <div class="col-xs-12 col-md-6">
                 <div class="container img-container">
                     <div id="upload-div"></div>

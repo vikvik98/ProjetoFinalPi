@@ -72,7 +72,7 @@ body {
 
 .post-box .name-box h4 {
     font-family: 'Abhaya Libre', serif;
-    color: #88898a;
+    color: #ff9900;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 0;
@@ -125,6 +125,7 @@ body {
 }
 
 .img-div .footer a i {
+  color: #ff9900;
   font-size:18px;
 }
 
@@ -611,7 +612,7 @@ grayscale:hover {
     height: 37px;
     float: left;
     padding: 2px;
-    border: 2px solid #f4f4f4;
+    border: 2px solid #ff9900;
 }
 
 .img-responsive {
@@ -636,10 +637,10 @@ grayscale:hover {
 }
 
 .profile-box .profile-body > span > a i {
-    color: #b2b2b2;
+    color: #ff9900;
     width: 30px;
     height: 30px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ff9900;
     text-align: center;
     line-height: 30px;
     font-weight: 700;
@@ -648,7 +649,7 @@ grayscale:hover {
 
 .profile-box .name-box h4 {
     font-family: 'Abhaya Libre', serif;
-    color: #88898a;
+    color: #ff9900;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 4px;
@@ -657,5 +658,5 @@ grayscale:hover {
 .profile-box .name-box span {
     font-family: 'Abhaya Libre', serif;
     font-size: 14px;
-    color: #aaa;
+    color: #88898a;
 }
