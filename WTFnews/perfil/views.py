@@ -36,6 +36,12 @@ def index(request):
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
+    search_term = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        search_profiles = Profile.objects.filter(name__icontains=search_term).exclude(id__in=blockers_list)
+
+        return render(request, 'search_profile.html', {'search_profiles': search_profiles, 'search_term': search_term})
 
 
 
@@ -64,6 +70,17 @@ def get_posts(request):
         posts.append(post)
 
     return posts
+
+
+@login_required
+def search_profile(request):
+    search_term = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        search_profiles = Profile.objects.filter(name__icontains=search_term)
+
+        return render(request, 'search_profile', {'search_profiles': search_profiles, 'search_term':search_term})
+
 
 
 
