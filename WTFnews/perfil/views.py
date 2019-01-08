@@ -36,6 +36,7 @@ def index(request):
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
+
     search_term = ''
     if 'search' in request.GET:
         search_term = request.GET['search']
@@ -59,15 +60,12 @@ def index(request):
 
 @login_required
 def get_posts(request):
-    posts = []
+
     loged_profile = get_loged_profile(request)
     friends = loged_profile.friends.all()
-    for friend in friends:
-        for post in friend.posts.all():
-            posts.append(post)
-
-    for post in loged_profile.posts.all():
-        posts.append(post)
+    posts = Post.objects.filter(
+        Q(profile__in=friends) | Q(profile=loged_profile)
+    ).order_by('-date')
 
     return posts
 
@@ -275,7 +273,7 @@ def unblock_user(request, profile_id):
     unblock_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_loged_profile(request)
     logged_profile.blocked.remove(unblock_profile)
-    
+
 
     return redirect('index')
 
