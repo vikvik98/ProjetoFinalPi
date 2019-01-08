@@ -15,7 +15,9 @@
 <a href="{% url 'accept' invitation.id %}">Accept </a>
 <a href="{% url 'decline' invitation.id %}">Reject </a>
 {% else %}
+{% if not profile in logged_profile.blocked.all %}
 <a href="{% url 'invite' profile.id %}">Invite</a>
+{% endif %}
 {% endif %}
 <br>
 {% if profile.is_superuser %}
