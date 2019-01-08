@@ -275,7 +275,7 @@ def unblock_user(request, profile_id):
     unblock_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_loged_profile(request)
     logged_profile.blocked.remove(unblock_profile)
-    logged_profile.friends.add(unblock_profile)
+    
 
     return redirect('index')
 
