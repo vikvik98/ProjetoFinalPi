@@ -11,17 +11,18 @@
         <div class="row">
             <aside class="col-xs-12 col-md-3">
                 <div class="profile-box full-width">
-                    <div class="profiles-list">
-                        <div class="profile-title">
-                            <h3>Friends</h3>
-                        </div>
+                    <div class="profile-title">
+                        <h3>Friends</h3>
+                    </div>
+                    <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+
                         {% if logged_profile_friends %}
                         {% for profile in logged_profile_friends %}
                         <div class="profile-body">
                             <a href="{% url 'show_profile' profile.id %}">
                                 <img alt="Image"
                                      class="img img-responsive img-circle"
-                                     src="{% static 'perfil/assets/img/default.png' %}">
+                                     src="{% static 'perfil/assets/img/profile.png' %}">
                                 <div class="name-box">
                                     <h4>{{ profile.name }}</h4>
                                     <span>{{ profile.user.email }}</span>
@@ -50,7 +51,7 @@
                                 <div class="post-body">
                                     <a href="{% url 'show_profile' post.profile.id %}">
                                         <img alt="Image" class="img img-responsive img-circle"
-                                             src="{% static 'perfil/assets/img/default.png' %}">
+                                             src="{% static 'perfil/assets/img/profile.png' %}">
                                         <div class="name-box">
                                             <h4>{{ post.profile.name }}</h4>
                                             <span>{{ post.date }}</span>
@@ -86,14 +87,19 @@
                 </div>
             </div>
             <aside class="col-xs-12 col-md-3">
-                <div class="profile-box full-width">
-                    <div class="profiles-list">
-                        <div class="profile-title">
-                            <h3>Suggestions</h3>
-                        </div>
+
+                <div class="profile-box full-width" >
+                    <div class="profile-title" >
+                        <h3>Suggestions</h3>
+
+                    </div>
+
+                    <div class="profiles-list" style="overflow-y:scroll; height: 180px" >
+
                         {% if suggested_profiles %}
                         {% for profile in suggested_profiles %}
-                        <div class="profile-body">
+
+                        <div class="profile-body" >
                             <a href="{% url 'show_profile' profile.id %}">
                                 <img alt="Image"
                                      class="img img-responsive img-circle"
@@ -116,13 +122,14 @@
                     </div>
                 </div>
                 <div class="profile-box full-width">
-                    <div class="profiles-list">
-                        <div class="profile-title">
+                    <div class="profile-title">
                             <h3>Submitted requests</h3>
                         </div>
+                    <div class="profiles-list" style="overflow-y:scroll; height: 180px">
+
                         {% if sent_invitations %}
                         {% for invitation in sent_invitations %}
-                        <div class="profile-body">
+                        <div class="profile-body" >
                             <a href="{% url 'show_profile' invitation.guest.id %}">
                                 <img alt="Image"
                                      class="img img-responsive img-circle"
@@ -145,10 +152,11 @@
                     </div>
                 </div>
                 <div class="profile-box full-width">
-                    <div class="profiles-list">
-                        <div class="profile-title">
-                            <h3>Requests received</h3>
-                        </div>
+                    <div class="profile-title">
+                        <h3>Requests received</h3>
+                    </div>
+                    <div class="profiles-list" style="overflow-y:scroll; height: 220px">
+
                         {% if received_invitations %}
                         {% for invitation in received_invitations %}
                         <div class="profile-body">

@@ -45,17 +45,17 @@
 			</div>
             <!-- Amigos -->
             <div class="profile-box full-width" style="margin-bottom: 20px;">
-                <div class="profiles-list">
-                    <div class="profile-title">
-                        <h3>Friends</h3>
-                    </div>
+                <div class="profile-title">
+                    <h3>Friends</h3>
+                </div>
+                <div class="profiles-list" style="overflow-y:scroll; height: 180px">
                     {% if friends_list %}
                     {% for profile in friends_list %}
                     <div class="profile-body">
                         <a href="{% url 'show_profile' profile.id %}">
                             <img alt="Image"
                                  class="img img-responsive img-circle"
-                                 src="{% static 'perfil/assets/img/default.png' %}">
+                                 src="{% static 'perfil/assets/img/profile.png' %}">
                             <div class="name-box">
                                 <h4>{{ profile.name }}</h4>
                                 <span>{{ profile.user.email }}</span>
@@ -120,17 +120,17 @@
         <div class="col-sm-3">
             <!-- Perfis bloqueados -->
             <div class="profile-box full-width" style="margin-bottom: 20px;">
-                <div class="profiles-list">
-                    <div class="profile-title">
-                        <h3>Blokeds</h3>
-                    </div>
+                <div class="profile-title">
+                    <h3>Blokeds</h3>
+                </div>
+                <div class="profiles-list" style="overflow-y:scroll; height: 180px">
                     {% if blocked_list %}
                     {% for profile in blocked_list %}
                     <div class="profile-body">
                         <a href="{% url 'show_profile' profile.id %}">
                             <img alt="Image"
                                  class="img img-responsive img-circle"
-                                 src="{% static 'perfil/assets/img/default.png' %}">
+                                 src="{% static 'perfil/assets/img/profile.png' %}">
                             <div class="name-box">
                                 <h4>{{ profile.name }}</h4>
                                 <span>{{ profile.user.email }}</span>
