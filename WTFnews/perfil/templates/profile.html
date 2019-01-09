@@ -57,7 +57,7 @@
 							<i class="glyphicon glyphicon-ok"></i>
                                 This profile is a super user </a>
                             {% elif logged_profile.is_superuser %}
-                            <a href="{% url 'make_superuser' profile.id %}" target="_blank">
+                            <a href="{% url 'make_superuser' profile.id %}">
                                 <i class="glyphicon glyphicon-ok"></i>
                                 Make him a super user </a>
                             {% else %}
