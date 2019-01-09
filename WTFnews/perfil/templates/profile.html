@@ -3,19 +3,15 @@
 {% block body %}
 
 <div class="container-fluid text-center bg-grey">
-    <div class="row text-center">
+    <div class="row text-left">
         <div class="col-sm-4">
-            <h2>Profile Information</h2><br>
-
-            <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#ffff">
-				<!-- SIDEBAR USERPIC -->
+            <!-- Informaçoes do perfil -->
+            <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
 				<div class="profile-userpic">
                     <img class="img-circle" height="100px"
                          src="{% static 'perfil/assets/img/profile.png' %}"
                          style="border: 2px solid #ff9900;">
 				</div>
-				<!-- END SIDEBAR USERPIC -->
-				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
                         <strong style="color:#ff9900;font-size:16px;">{{profile.name}}</strong>
@@ -25,8 +21,6 @@
 					</div>
 				</div>
                 <br>
-				<!-- END SIDEBAR USER TITLE -->
-				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
                     {% if is_friend %}
                     <a href="{% url 'undo_friendship' profile.id %}">
@@ -55,8 +49,6 @@
                     </a>
                     {% endif %}
 				</div>
-				<!-- END SIDEBAR BUTTONS -->
-				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li>
@@ -78,8 +70,8 @@
 				</div>
 			</div>
         </div>
+        <!-- Posts -->
         <div class="col-sm-6">
-            <h3>Posts</h3>
             <div class="container img-container">
                 <div id="upload-div"></div>
                 {% if profile.posts.all %}
@@ -114,7 +106,7 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <div class="img-div">
+                <div class="img-div" style="margin-top:50px;">
                     <strong><h1 align="center">Nothing to show</h1></strong>
                 </div>
                 {% endif %}

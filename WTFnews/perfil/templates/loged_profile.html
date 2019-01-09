@@ -14,10 +14,10 @@
 				</div>
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						<strong style="color:#ff9900;font-size:16px;">{{loged_profile.name}}</strong>
+						<strong style="color:#ff9900;font-size:16px;">{{logged_profile.name}}</strong>
 					</div>
 					<div class="profile-usertitle-job">
-						{{loged_profile.user.email}}
+						{{logged_profile.user.email}}
 					</div>
 				</div>
                 <br>
@@ -29,7 +29,7 @@
 							Change password</a>
 						</li>
 						<li>
-                            {% if loged_profile.is_superuser %}
+                            {% if logged_profile.is_superuser %}
 							<a href="{% url 'give_up_superuser' %}" target="_blank">
 							<i class="glyphicon glyphicon-remove"></i>
                                 Stop being superuser </a>
@@ -49,8 +49,8 @@
                     <div class="profile-title">
                         <h3>Friends</h3>
                     </div>
-                    {% if loged_profile_friends %}
-                    {% for profile in loged_profile_friends %}
+                    {% if friends_list %}
+                    {% for profile in friends_list %}
                     <div class="profile-body">
                         <a href="{% url 'show_profile' profile.id %}">
                             <img alt="Image"
@@ -76,8 +76,8 @@
         <div class="col-sm-6">
             <div class="container img-container">
                 <div id="upload-div"></div>
-                {% if loged_profile.posts.all %}
-                {% for post in loged_profile.posts.all %}
+                {% if logged_profile.posts.all %}
+                {% for post in logged_profile.posts.all %}
                 <div class="container img-container">
                     <div class="post-box full-width">
                         <div class="post-list">
@@ -111,7 +111,7 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <div class="img-div">
+                <div class="img-div" style="margin-top:50px;">
                     <strong><h1 align="center">Nothing to show</h1></strong>
                 </div>
                 {% endif %}
@@ -122,10 +122,10 @@
             <div class="profile-box full-width" style="margin-bottom: 20px;">
                 <div class="profiles-list">
                     <div class="profile-title">
-                        <h3>Friends</h3>
+                        <h3>Blokeds</h3>
                     </div>
-                    {% if loged_profile_friends %}
-                    {% for profile in loged_profile_friends %}
+                    {% if blocked_list %}
+                    {% for profile in blocked_list %}
                     <div class="profile-body">
                         <a href="{% url 'show_profile' profile.id %}">
                             <img alt="Image"
@@ -136,12 +136,14 @@
                                 <span>{{ profile.user.email }}</span>
                             </div>
                         </a>
+                        <span><a href="{% url 'unblock_user' profile.id %}"><i class="fa fa-minus"></i></a></span>
+
                     </div>
                     {% endfor %}
                     {% else %}
                     <div class="profile-body">
                         <div class="name-box">
-                            <h4>You have no friends! :( </h4>
+                            <h4>No blocked profiles </h4>
                         </div>
                     </div>
                     {% endif %}
