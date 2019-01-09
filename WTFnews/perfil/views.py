@@ -253,11 +253,28 @@ def delete_post(request, post_id):
 
 @login_required
 def block_user(request, profile_id):
-    profile_blocked = Profile.objects.get(id=profile_id)
+    blocked_profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
-    loged_profile.blocked.add(profile_blocked)
-    undo_friendship(request, profile_blocked.id)
-    return redirect('index')
+
+    if blocked_profile in loged_profile.friends.all():
+        undo_friendship(request, blocked_profile.id)
+
+    elif blocked_profile in loged_profile.guests_profiles.all():
+        invitation = loged_profile.sent_invitations\
+            .get(guest=blocked_profile)
+
+        if invitation:
+            loged_profile.cancel_invitation(invitation)
+
+    elif blocked_profile in loged_profile.inviters_profiles.all():
+        invitation = loged_profile.received_invitations\
+            .get(inviter=blocked_profile)
+
+        if invitation:
+            loged_profile.decline_invitation(invitation)
+
+    loged_profile.blocked.add(blocked_profile)
+    return redirect('show_profile', blocked_profile.id)
 
 
 @login_required
@@ -266,7 +283,7 @@ def unblock_user(request, profile_id):
     logged_profile = get_loged_profile(request)
     logged_profile.blocked.remove(unblock_profile)
 
-    return redirect('index')
+    return redirect('show_profile', unblock_profile.id)
 
 
 @login_required
