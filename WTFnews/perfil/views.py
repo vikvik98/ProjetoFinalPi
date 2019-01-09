@@ -13,7 +13,6 @@ from usuarios.forms import ChangePasswordForm
 # Create your views here.
 
 
-
 @login_required
 def index(request):
 
@@ -24,7 +23,6 @@ def index(request):
     blocked_list = logged_profile.blocked.all()
     blockers_list = logged_profile.blockers.all()
 
-
     suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
         .exclude(id__in=guests_profiles)\
         .exclude(id__in=logged_profile_friends) \
@@ -32,22 +30,18 @@ def index(request):
         .exclude(id__in=blockers_list)\
         .exclude(id=logged_profile.id)\
 
-
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
 
-    search_term = ''
     if 'search' in request.GET:
         search_term = request.GET['search']
-        search_profiles = Profile.objects.filter(name__icontains=search_term).exclude(id__in=blockers_list)
+        search_profiles = Profile.objects.filter(name__icontains=search_term)\
+            .exclude(id__in=blockers_list)
 
-        return render(request, 'search_profile.html', {'search_profiles': search_profiles, 'search_term': search_term})
-
-
-
-
-
+        return render(request, 'search_profile.html',
+                      {'search_profiles': search_profiles,
+                       'search_term': search_term})
 
     return render(request, 'index.html', {
         'logged_profile': logged_profile,
@@ -57,6 +51,7 @@ def index(request):
         'logged_profile_friends': logged_profile_friends,
         'posts': posts
     })
+
 
 @login_required
 def get_posts(request):
@@ -72,14 +67,13 @@ def get_posts(request):
 
 @login_required
 def search_profile(request):
-    search_term = ''
     if 'search' in request.GET:
         search_term = request.GET['search']
         search_profiles = Profile.objects.filter(name__icontains=search_term)
 
-        return render(request, 'search_profile', {'search_profiles': search_profiles, 'search_term':search_term})
-
-
+        return render(request, 'search_profile',
+                      {'search_profiles': search_profiles,
+                       'search_term': search_term})
 
 
 @login_required
@@ -97,7 +91,6 @@ def show_profile(request, profile_id):
 
     if profile in logged_profile.blockers.all():
         return show_blockers_profile(request)
-
 
     invitation = Invitation.objects.filter(
         (Q(guest=profile) & Q(inviter=logged_profile)) |
@@ -145,6 +138,7 @@ def invite(request, profile_id):
 
     return redirect('index')
 
+
 @login_required
 def cancel_invitation(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
@@ -179,10 +173,6 @@ def undo_friendship(request, profile_id):
     return redirect('index')
 
 
-
-
-
-
 class ChangePasswordView(View):
 
     template_name = 'change_password.html'
@@ -199,12 +189,9 @@ class ChangePasswordView(View):
         new_password = change_passwordform.cleaned_data['new_password']
         co_new_password = change_passwordform.cleaned_data['co_new_password']
 
-
-
         if not loged_profile.user.check_password(old_password):
             change_passwordform.add_error("The old password is not correct.")
             change_passwordform.valid = False
-
 
         if new_password != co_new_password:
             change_passwordform.add_error("The new password is not the same as the password confirmation.")
@@ -218,12 +205,11 @@ class ChangePasswordView(View):
         return render(request, self.template_name, {'form': change_passwordform})
 
 
-
 class AddPostView(View):
 
     template_post = 'add_post.html'
 
-    def get(self,request):
+    def get(self, request):
         return render(request, self.template_post)
 
     def post(self, request):
@@ -238,8 +224,6 @@ class AddPostView(View):
         return render(request, self.template_post, {'form': add_postform})
 
 
-
-
 @login_required
 def make_superuser(request, profile_id):
     if not request.user.is_superuser:
@@ -250,12 +234,14 @@ def make_superuser(request, profile_id):
 
     return redirect('show_profile', profile_id)
 
+
 @login_required
 def give_up_superuser(request):
     request.user.is_superuser = False
     request.user.save()
 
     return redirect('show_loged_profile')
+
 
 @login_required
 def delete_post(request, post_id):
@@ -264,13 +250,32 @@ def delete_post(request, post_id):
     loged_profile.delete_post(post)
     return redirect('index')
 
+
 @login_required
 def block_user(request, profile_id):
-    profile_blocked = Profile.objects.get(id=profile_id)
+    blocked_profile = Profile.objects.get(id=profile_id)
     loged_profile = get_loged_profile(request)
-    loged_profile.blocked.add(profile_blocked)
-    undo_friendship(request,profile_blocked.id)
-    return redirect('index')
+
+    if blocked_profile in loged_profile.friends.all():
+        undo_friendship(request, blocked_profile.id)
+
+    elif blocked_profile in loged_profile.guests_profiles.all():
+        invitation = loged_profile.sent_invitations\
+            .get(guest=blocked_profile)
+
+        if invitation:
+            loged_profile.cancel_invitation(invitation)
+
+    elif blocked_profile in loged_profile.inviters_profiles.all():
+        invitation = loged_profile.received_invitations\
+            .get(inviter=blocked_profile)
+
+        if invitation:
+            loged_profile.decline_invitation(invitation)
+
+    loged_profile.blocked.add(blocked_profile)
+    return redirect('show_profile', blocked_profile.id)
+
 
 @login_required
 def unblock_user(request, profile_id):
@@ -278,8 +283,8 @@ def unblock_user(request, profile_id):
     logged_profile = get_loged_profile(request)
     logged_profile.blocked.remove(unblock_profile)
 
+    return redirect('show_profile', unblock_profile.id)
 
-    return redirect('index')
 
 @login_required
 def show_blockers_profile(request):
