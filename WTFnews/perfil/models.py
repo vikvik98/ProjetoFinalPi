@@ -3,8 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-
-
 class Profile(models.Model):
 
     name = models.CharField(max_length=80)
@@ -28,7 +26,6 @@ class Profile(models.Model):
     def give_up_superuser(self):
         self.user.is_superuser = False
         self.user.save()
-
 
     def invite(self, invited_profile, date):
         if (invited_profile not in self.guests_profiles.all()) and\
@@ -55,7 +52,6 @@ class Profile(models.Model):
             invitation.decline()
             return True
         return False
-
 
     def delete_post(self, post):
         if post in self.posts.all():
