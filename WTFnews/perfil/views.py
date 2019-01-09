@@ -126,10 +126,14 @@ def show_profile(request, profile_id):
 
 @login_required
 def show_loged_profile(request):
-    loged_profile = get_loged_profile(request)
+    logged_profile = get_loged_profile(request)
+    friends_list = logged_profile.friends.all()
+    blocked_list = logged_profile.blocked.all()
 
     return render(request, 'loged_profile.html',
-                  {'loged_profile': loged_profile})
+                  {'logged_profile': logged_profile,
+                   "friends_list": friends_list,
+                   "blocked_list": blocked_list})
 
 
 @login_required

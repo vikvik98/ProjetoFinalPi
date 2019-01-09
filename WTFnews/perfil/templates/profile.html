@@ -3,30 +3,24 @@
 {% block body %}
 
 <div class="container-fluid text-center bg-grey">
-    <div class="row text-center">
+    <div class="row text-left">
         <div class="col-sm-4">
-            <h2>Profile Information</h2><br>
-
-            <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#ffff">
-				<!-- SIDEBAR USERPIC -->
+            <!-- Informaçoes do perfil -->
+            <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
 				<div class="profile-userpic">
                     <img class="img-circle" height="100px"
-                         src="{% static 'perfil/assets/img/default.png' %}"
+                         src="{% static 'perfil/assets/img/profile.png' %}"
                          style="border: 2px solid #ff9900;">
 				</div>
-				<!-- END SIDEBAR USERPIC -->
-				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						{{profile.name}}
+                        <strong style="color:#ff9900;font-size:16px;">{{profile.name}}</strong>
 					</div>
 					<div class="profile-usertitle-job">
 						{{profile.user.email}}
 					</div>
 				</div>
                 <br>
-				<!-- END SIDEBAR USER TITLE -->
-				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
                     {% if is_friend %}
                     <a href="{% url 'undo_friendship' profile.id %}">
@@ -55,20 +49,8 @@
                     </a>
                     {% endif %}
 				</div>
-				<!-- END SIDEBAR BUTTONS -->
-				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li class="active">
-							<a href="#">
-							<i class="glyphicon glyphicon-home"></i>
-							Overview </a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-user"></i>
-							Account Settings </a>
-						</li>
 						<li>
                             {% if profile.is_superuser %}
 							<a target="_blank">
@@ -84,17 +66,12 @@
                                 This profile is not a super user </a>
                             {% endif %}
 						</li>
-						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-flag"></i>
-							Help </a>
-						</li>
 					</ul>
 				</div>
 			</div>
         </div>
+        <!-- Posts -->
         <div class="col-sm-6">
-            <h3>Posts</h3>
             <div class="container img-container">
                 <div id="upload-div"></div>
                 {% if profile.posts.all %}
@@ -105,7 +82,7 @@
                             <div class="post-body">
                                 <a href="{% url 'show_profile' post.profile.id %}">
                                     <img alt="Image" class="img img-responsive img-circle"
-                                         src="{% static 'perfil/assets/img/default.png' %}">
+                                         src="{% static 'perfil/assets/img/profile.png' %}">
                                     <div class="name-box">
                                         <h4>{{ post.profile.name }}</h4>
                                         <span>{{ post.date }}</span>
@@ -129,8 +106,8 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <div class="img-div">
-                    <strong><h1 align="center">Nothink to show</h1></strong>
+                <div class="img-div" style="margin-top:50px;">
+                    <strong><h1 align="center">Nothing to show</h1></strong>
                 </div>
                 {% endif %}
             </div>
