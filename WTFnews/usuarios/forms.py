@@ -56,9 +56,9 @@ class ChangePasswordForm(forms.Form):
         errors.append(message)
 
 
-    # def check_old_password(self,loged_profile):
+    # def check_old_password(self,logged_profile):
     #
-    #     if self.cleaned_data['old_password'] == loged_profile.email:
+    #     if self.cleaned_data['old_password'] == logged_profile.email:
     #         return True
     #     else:
     #         return False
