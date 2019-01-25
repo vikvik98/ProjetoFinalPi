@@ -1,16 +1,12 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic.base import View
 from django.db.models import Q
-from datetime import datetime
+from django.shortcuts import render, redirect
+from django.views.generic.base import View
 
 from perfil.models import Profile, Invitation
 from postagens.forms import AddPostForm
 from postagens.models import Post
 from usuarios.forms import ChangePasswordForm
-
-
-# Create your views here.
 
 
 @login_required
@@ -135,9 +131,7 @@ def show_logged_profile(request):
 def invite(request, profile_id):
     guest_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
-
-    logged_profile.invite(guest_profile, datetime.now())
-
+    logged_profile.invite(guest_profile)
     return redirect('index')
 
 
@@ -145,9 +139,7 @@ def invite(request, profile_id):
 def cancel_invitation(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
-
-    logged_profile.cancel_invitation(invitation)
-
+    invitation.cancel(logged_profile)
     return redirect('index')
 
 
@@ -155,7 +147,7 @@ def cancel_invitation(request, invitation_id):
 def accept(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
-    logged_profile.accept_invitation(invitation)
+    invitation.accept(logged_profile)
     return redirect('index')
 
 
@@ -163,7 +155,7 @@ def accept(request, invitation_id):
 def decline(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
-    logged_profile.decline_invitation(invitation)
+    invitation.decline(logged_profile)
     return redirect('index')
 
 
@@ -218,7 +210,7 @@ class AddPostView(View):
         add_postform = AddPostForm(request.POST)
         if add_postform.is_valid():
             print(add_postform.cleaned_data['text'])
-            post = Post(content=add_postform.cleaned_data['text'], date=datetime.now())
+            post = Post(content=add_postform.cleaned_data['text'])
             post.profile = get_logged_profile(request)
             post.save()
             return redirect('index')
@@ -228,11 +220,9 @@ class AddPostView(View):
 
 @login_required
 def make_superuser(request, profile_id):
-    if not request.user.is_superuser:
-        raise PermissionError
-
     profile = Profile.objects.get(id=profile_id)
-    profile.change_to_superuser()
+    logged_profile = get_logged_profile(request)
+    logged_profile.change_to_superuser(profile)
 
     return redirect('show_profile', profile_id)
 
