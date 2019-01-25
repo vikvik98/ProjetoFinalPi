@@ -88,6 +88,10 @@
                                         <span>{{ post.date }}</span>
                                     </div>
                                 </a>
+                                {% if logged_profile.is_superuser %}
+                                <a onclick="return confirm('Are you sure you want to delete this item?')"
+                                   href="{% url 'delete_post' post.id %}"><i class="fa fa-remove"></i></a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

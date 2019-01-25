@@ -54,7 +54,7 @@ class Profile(models.Model):
         return False
 
     def delete_post(self, post):
-        if post in self.posts.all():
+        if post in self.posts.all() or self.is_superuser():
             post.delete()
 
 

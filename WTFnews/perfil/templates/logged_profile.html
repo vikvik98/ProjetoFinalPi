@@ -75,6 +75,38 @@
                     {% endif %}
                 </div>
             </div>
+            {% if logged_profile.is_superuser %}
+            <div class="profile-box full-width" style="margin-bottom: 20px;">
+                <div class="profile-title">
+                    <h3>All Profiles</h3>
+                </div>
+                <div class="profiles-list" style="overflow-y:scroll;">
+                    {% if all_profiles %}
+                    {% for profile in all_profiles %}
+                    <div class="profile-body">
+                        <a href="{% url 'show_profile' profile.id %}">
+                            <img alt="Image"
+                                 class="img img-responsive img-circle"
+                                 src="{% static 'perfil/assets/img/profile.png' %}">
+                            <div class="name-box" style="overflow: unset;">
+                                <h4>{{ profile.name }}</h4>
+                                <span>{{ profile.user.email }}</span>
+                            </div>
+                        </a>
+
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="profile-body">
+                        <div class="name-box">
+                            <h4>No profile to show! </h4>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
         </div>
         <div class="col-sm-6">
             <div class="container img-container">
@@ -87,7 +119,7 @@
                             <div class="post-body">
                                 <a href="{% url 'show_profile' post.profile.id %}">
                                     <img alt="Image" class="img img-responsive img-circle"
-                                         src="{% static 'perfil/assets/img/default.png' %}">
+                                         src="{% static 'perfil/assets/img/profile.png' %}">
                                     <div class="name-box">
                                         <h4>{{ post.profile.name }}</h4>
                                         <span>{{ post.date }}</span>
