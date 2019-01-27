@@ -1,21 +1,15 @@
 from django import forms
-
+from pyuploadcare.dj.forms import ImageField
 
 
 class AddPostForm(forms.Form):
-    text = forms.CharField(required=True)
+    text = forms.CharField(required=False)
+    photo = ImageField(required=False)
 
-    def is_valid(self):
-        valid = True
-        if not super(AddPostForm, self).is_valid():
-            self.add_error('Please, Check the reported data.')
-            valid = False
-
-
-        return valid
-
-    def add_error(self, message):
-        errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
-                                         forms.utils.ErrorList())
-
-        errors.append(message)
+    def clean(self):
+        cleaned_data = super().clean()
+        text = cleaned_data.get('text')
+        photo = cleaned_data.get('photo')
+        if not text and not photo:
+            raise forms.ValidationError("Please, add a photo or text.")
+        return cleaned_data

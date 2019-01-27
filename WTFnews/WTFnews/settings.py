@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pyuploadcare.dj',
     'perfil',
     'usuarios',
     'postagens',
@@ -57,7 +58,9 @@ ROOT_URLCONF = 'WTFnews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +72,11 @@ TEMPLATES = [
         },
     },
 ]
+
+UPLOADCARE = {
+    'pub_key': '6a883237222478952582',
+    'secret': 'a3ffbe0158071408ce37',
+}
 
 WSGI_APPLICATION = 'WTFnews.wsgi.application'
 
@@ -121,9 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-LOGIN_URL='/login/'
-LOGOUT_URL='/logout/'
-LOGIN_REDIRECT_URL='/'
+LOGIN_URL = 'user/login/'
+LOGOUT_URL = 'user/logout/'
+LOGIN_REDIRECT_URL = '/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

@@ -5,14 +5,11 @@ from django.views.generic.base import View
 
 from perfil.forms import DisableProfileForm
 from perfil.models import Profile, Invitation
-from postagens.forms import AddPostForm
 from postagens.models import Post
-from usuarios.forms import ChangePasswordForm
 
 
 @login_required
 def index(request):
-
     logged_profile = get_logged_profile(request)
     logged_profile_friends = logged_profile.friends.all()
     inviters_profiles = logged_profile.inviters_profiles.all()
@@ -20,12 +17,12 @@ def index(request):
     blocked_list = logged_profile.blocked.all()
     blockers_list = logged_profile.blockers.all()
 
-    suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles)\
-        .exclude(id__in=guests_profiles)\
+    suggested_profiles = Profile.objects.exclude(id__in=inviters_profiles) \
+        .exclude(id__in=guests_profiles) \
         .exclude(id__in=logged_profile_friends) \
-        .exclude(id__in=blocked_list)\
-        .exclude(id__in=blockers_list)\
-        .exclude(id=logged_profile.id)\
+        .exclude(id__in=blocked_list) \
+        .exclude(id__in=blockers_list) \
+        .exclude(id=logged_profile.id)
 
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
@@ -33,7 +30,7 @@ def index(request):
 
     if 'search' in request.GET:
         search_term = request.GET['search']
-        search_profiles = Profile.objects.filter(name__icontains=search_term)\
+        search_profiles = Profile.objects.filter(name__icontains=search_term) \
             .exclude(id__in=blockers_list)
 
         return render(request, 'search_profile.html',
@@ -52,7 +49,6 @@ def index(request):
 
 @login_required
 def get_posts(request):
-
     logged_profile = get_logged_profile(request)
     friends = logged_profile.friends.all()
     posts = Post.objects.filter(
@@ -168,60 +164,8 @@ def undo_friendship(request, profile_id):
     return redirect('index')
 
 
-class ChangePasswordView(View):
-
-    template_name = 'change_password.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
-        logged_profile = get_logged_profile(request)
-        change_passwordform = ChangePasswordForm(request.POST)
-        change_passwordform.valid = True
-        change_passwordform.is_valid()
-        old_password = change_passwordform.cleaned_data['old_password']
-        new_password = change_passwordform.cleaned_data['new_password']
-        co_new_password = change_passwordform.cleaned_data['co_new_password']
-
-        if not logged_profile.user.check_password(old_password):
-            change_passwordform.add_error("The old password is not correct.")
-            change_passwordform.valid = False
-
-        if new_password != co_new_password:
-            change_passwordform.add_error("The new password is not the same as the password confirmation.")
-            change_passwordform.valid = False
-
-        if change_passwordform.is_valid():
-            logged_profile.user.set_password(change_passwordform.cleaned_data['new_password'])
-            logged_profile.user.save()
-            return redirect('show_logged_profile')
-
-        return render(request, self.template_name, {'form': change_passwordform})
-
-
-class AddPostView(View):
-
-    template_post = 'add_post.html'
-
-    def get(self, request):
-        return render(request, self.template_post)
-
-    def post(self, request):
-        add_postform = AddPostForm(request.POST)
-        if add_postform.is_valid():
-            print(add_postform.cleaned_data['text'])
-            post = Post(content=add_postform.cleaned_data['text'])
-            post.profile = get_logged_profile(request)
-            post.save()
-            return redirect('index')
-
-        return render(request, self.template_post, {'form': add_postform})
-
 class DisableProfileView(View):
-
     template_post = 'disable_profile.html'
-
 
     def get(self, request):
         return render(request, self.template_post)
@@ -230,7 +174,6 @@ class DisableProfileView(View):
         disable_profile = DisableProfileForm(request.POST)
         logged_profile = get_logged_profile(request)
         if disable_profile.is_valid():
-
             logged_profile.reason_disable = disable_profile.cleaned_data['text']
             logged_profile.save()
             logged_profile.user.is_active = False
@@ -258,14 +201,6 @@ def give_up_superuser(request):
 
 
 @login_required
-def delete_post(request, post_id):
-    post = Post.objects.get(id=post_id)
-    logged_profile = get_logged_profile(request)
-    logged_profile.delete_post(post)
-    return redirect('index')
-
-
-@login_required
 def block_user(request, profile_id):
     blocked_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
@@ -274,14 +209,14 @@ def block_user(request, profile_id):
         undo_friendship(request, blocked_profile.id)
 
     elif blocked_profile in logged_profile.guests_profiles.all():
-        invitation = logged_profile.sent_invitations\
+        invitation = logged_profile.sent_invitations \
             .get(guest=blocked_profile)
 
         if invitation:
             logged_profile.cancel_invitation(invitation)
 
     elif blocked_profile in logged_profile.inviters_profiles.all():
-        invitation = logged_profile.received_invitations\
+        invitation = logged_profile.received_invitations \
             .get(inviter=blocked_profile)
 
         if invitation:
