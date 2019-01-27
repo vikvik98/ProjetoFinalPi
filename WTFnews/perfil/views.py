@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from perfil.forms import DisableProfileForm
 from perfil.models import Profile, Invitation
 from postagens.models import Post
+from django.core.paginator import Paginator
 
 
 @login_required
@@ -28,6 +29,9 @@ def index(request):
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
+    paginator = Paginator(posts, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
 
     if 'search' in request.GET:
         search_term = request.GET['search']
@@ -79,6 +83,10 @@ def get_logged_profile(request):
 def show_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
+    posts = profile.posts.all()
+    paginator = Paginator(posts, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
 
     if profile.id == logged_profile.id:
         return show_logged_profile(request)
@@ -108,7 +116,8 @@ def show_profile(request, profile_id):
                    'invitation': invitation,
                    'is_friend': is_friend,
                    'is_guest': is_guest,
-                   'is_inviter': is_inviter})
+                   'is_inviter': is_inviter,
+                   'posts': posts})
 
 
 @login_required
@@ -117,12 +126,17 @@ def show_logged_profile(request):
     friends_list = logged_profile.friends.all()
     blocked_list = logged_profile.blocked.all()
     all_profiles = Profile.objects.exclude(id=logged_profile.id)
+    posts = logged_profile.posts.all()
+    paginator = Paginator(posts, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
 
     return render(request, 'logged_profile.html',
                   {'logged_profile': logged_profile,
                    "friends_list": friends_list,
                    "blocked_list": blocked_list,
-                   "all_profiles": all_profiles})
+                   "all_profiles": all_profiles,
+                   'posts':posts})
 
 
 @login_required
