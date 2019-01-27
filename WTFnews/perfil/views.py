@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
@@ -141,6 +142,7 @@ def cancel_invitation(request, invitation_id):
 
 
 @login_required
+@transaction.atomic
 def accept(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
@@ -201,6 +203,7 @@ def give_up_superuser(request):
 
 
 @login_required
+@transaction.atomic
 def block_user(request, profile_id):
     blocked_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
@@ -220,7 +223,7 @@ def block_user(request, profile_id):
             .get(inviter=blocked_profile)
 
         if invitation:
-            logged_profile.decline_invitation(invitation)
+            invitation.decline(logged_profile)
 
     logged_profile.blocked.add(blocked_profile)
     return redirect('show_profile', blocked_profile.id)
