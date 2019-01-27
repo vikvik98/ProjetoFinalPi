@@ -213,7 +213,7 @@ def block_user(request, profile_id):
             .get(guest=blocked_profile)
 
         if invitation:
-            logged_profile.cancel_invitation(invitation)
+            invitation.cancel(logged_profile)
 
     elif blocked_profile in logged_profile.inviters_profiles.all():
         invitation = logged_profile.received_invitations \
