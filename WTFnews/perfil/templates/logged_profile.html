@@ -28,6 +28,11 @@
 							<i class="glyphicon glyphicon-user"></i>
 							Change password</a>
 						</li>
+                        <li>
+							<a href="{% url 'disable_profile' %}">
+							<i class="glyphicon glyphicon-user"></i>
+							Disable Profile</a>
+						</li>
 						<li>
                             {% if logged_profile.is_superuser %}
 							<a href="{% url 'give_up_superuser' %}">

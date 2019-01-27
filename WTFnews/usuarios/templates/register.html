@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
 
-<form action="{% url 'signup' %}" method="post">
+<form class="form" action="{% url 'signup' %}" method="post">
     {% csrf_token %}
     <div class="illustration"><img src="{% static 'usuarios/assets/img/logo.png' %}"></div>
     <h2 class="vvzhL ">Sign up to see photos and videos from your friends.</h2>

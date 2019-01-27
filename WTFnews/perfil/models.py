@@ -16,6 +16,8 @@ class Profile(models.Model):
     blocked = models.ManyToManyField('self', related_name='blockers',
                                      symmetrical=False)
 
+    reason_disable = models.CharField(max_length=200, default="No have")
+
     def is_superuser(self):
         return self.user.is_superuser
 

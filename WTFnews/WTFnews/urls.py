@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from usuarios.views import SingUpView
-from perfil.views import ChangePasswordView, AddPostView
+from usuarios.views import SingUpView, LoginCustomView, activate_profile, enable
+from perfil.views import ChangePasswordView, AddPostView, DisableProfileView
 from django.contrib.auth import views as v
 from perfil import views
 from django.contrib.auth.decorators import login_required
@@ -35,11 +35,12 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('password-reset-complete/', v.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
          name='password_reset_complete'),
-    path('login/', v.LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', LoginCustomView.as_view(template_name='login.html'), name='login'),
     path('logout/', v.LogoutView.as_view(template_name='login.html'), name='logout'),
     path('profile/<int:profile_id>', views.show_profile, name='show_profile'),
     path('logged-profile/', views.show_logged_profile, name='show_logged_profile'),
     path('logged-profile/change-password', login_required(ChangePasswordView.as_view()), name='change_password'),
+    path('logged-profile/disable-profile', login_required(DisableProfileView.as_view()), name='disable_profile'),
     path('profile/<int:profile_id>/invite', views.invite, name='invite'),
     path('invite/<int:invitation_id>/cancel', views.cancel_invitation, name='cancel_invitation'),
     path('profile/<int:profile_id>/remove', views.undo_friendship, name='undo_friendship'),
@@ -52,6 +53,9 @@ urlpatterns = [
     path('unblock-user/<int:profile_id>', views.unblock_user, name='unblock_user'),
     path('blockers-profile/', views.show_blockers_profile, name='blockers_profile'),
     path('search-profile/', views.search_profile, name='search_profile'),
+    path('enable-profile/<int:id>', activate_profile, name='activate_profile'),
+    path('enable/<int:id>', enable, name='enable'),
+
 
 
 ]

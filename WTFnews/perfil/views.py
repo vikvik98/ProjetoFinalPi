@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 
+from perfil.forms import DisableProfileForm
 from perfil.models import Profile, Invitation
 from postagens.forms import AddPostForm
 from postagens.models import Post
@@ -216,6 +217,27 @@ class AddPostView(View):
             return redirect('index')
 
         return render(request, self.template_post, {'form': add_postform})
+
+class DisableProfileView(View):
+
+    template_post = 'disable_profile.html'
+
+
+    def get(self, request):
+        return render(request, self.template_post)
+
+    def post(self, request):
+        disable_profile = DisableProfileForm(request.POST)
+        logged_profile = get_logged_profile(request)
+        if disable_profile.is_valid():
+
+            logged_profile.reason_disable = disable_profile.cleaned_data['text']
+            logged_profile.save()
+            logged_profile.user.is_active = False
+            logged_profile.user.save()
+            return redirect('logout')
+
+        return render(request, self.template_post, {'form': disable_profile})
 
 
 @login_required

@@ -13,9 +13,16 @@
                          style="border: 2px solid #ff9900;">
 				</div>
 				<div class="profile-usertitle">
+                    {% if profile.user.is_active %}
 					<div class="profile-usertitle-name">
                         <strong style="color:#ff9900;font-size:16px;">{{profile.name}}</strong>
 					</div>
+                    {% else %}
+                    <div class="profile-usertitle-name">
+                        <strong style="color:#ff9900;font-size:16px;">{{profile.name}} (DISABLE)</strong>
+					</div>
+
+                    {% endif %}
 					<div class="profile-usertitle-job">
 						{{profile.user.email}}
 					</div>
