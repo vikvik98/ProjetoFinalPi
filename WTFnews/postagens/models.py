@@ -12,5 +12,6 @@ class Post(models.Model):
     photo = ImageField(null=True, blank=True, manual_crop="")
 
     def delete(self, using=None, keep_parents=False):
-        self.photo.delete()
+        if self.photo:
+            self.photo.delete()
         return super(Post, self).delete()

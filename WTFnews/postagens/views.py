@@ -19,7 +19,7 @@ class AddPostView(View):
             text = add_postform.cleaned_data['text']
             photo = add_postform.cleaned_data['photo']
             if text:
-                post.text = text
+                post.content = text
             if photo:
                 post.photo = photo
             post.save()
