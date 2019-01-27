@@ -15,9 +15,13 @@ class AddPostView(View):
     def post(self, request):
         add_postform = AddPostForm(request.POST)
         if add_postform.is_valid():
-            print(add_postform.cleaned_data['text'])
-            post = Post(content=add_postform.cleaned_data['text'])
-            post.profile = request.user.profile
+            post = Post(profile=request.user.profile)
+            text = add_postform.cleaned_data['text']
+            photo = add_postform.cleaned_data['photo']
+            if text:
+                post.text = text
+            if photo:
+                post.photo = photo
             post.save()
             return redirect('index')
 
@@ -27,6 +31,7 @@ class AddPostView(View):
 @login_required
 def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
-    logged_profile = request.user.profile
-    logged_profile.delete_post(post)
-    return redirect('index')
+    if post.profile == request.user.profile:
+        post.delete()
+        return redirect('index')
+    raise PermissionError("You don't have permission to this operation.")

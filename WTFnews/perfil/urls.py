@@ -20,6 +20,5 @@ urlpatterns = [
     path('search-profile/', views.search_profile, name='search_profile'),
     path('blockers-profile/', views.show_blockers_profile, name='blockers_profile'),
     path('logged/disable', login_required(DisableProfileView.as_view()), name='disable_profile'),
-    path('enable/<int:id>', enable, name='enable'),
     path('enable-profile/<int:id>', activate_profile, name='activate_profile'),
 ]

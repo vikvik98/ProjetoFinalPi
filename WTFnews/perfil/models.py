@@ -40,12 +40,6 @@ class Profile(models.Model):
             return
         raise IntegrityError("This profile is already a guest or invited you.")
 
-    def delete_post(self, post):
-        if post.profile == self or self.is_superuser():
-            post.delete()
-            return
-        raise PermissionError("You don't have permission to this operation.")
-
 
 class Invitation(models.Model):
 

@@ -1,0 +1,53 @@
+{% extends 'base_perfil.html' %}
+{% block body %}
+<div class="row" style="padding:20px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input class="form-control" id="id_name" name="text" placeholder="Say something" autofocus>
+            </div>
+
+            <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
+            <input
+                    type="hidden"
+                    role="uploadcare-uploader"
+                    name="photo"
+                    data-image-shrink="800x800 40%"
+                    data-crop="4:4"/>
+
+            <div class="form-group">
+                <button class="btn btn-warning btn-block" type="submit">Add Post</button>
+            </div>
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <button type="button" class="close"
+                        data-dismiss="alert" aria-hidden="true">
+                </button>
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+        </form>
+    </div>
+</div>
+
+<script>
+  UPLOADCARE_PUBLIC_KEY = '6a883237222478952582';
+  UPLOADCARE_TABS = 'file camera url';
+  UPLOADCARE_EFFECTS = 'crop,rotate,mirror,flip,enhance,sharp,blur,grayscale,invert';
+  UPLOADCARE_IMAGE_SHRINK = '800x800 40%';
+  UPLOADCARE_IMAGES_ONLY = true;
+  UPLOADCARE_PREVIEW_STEP = true;
+  UPLOADCARE_CLEARABLE = true;
+</script>
+
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script><script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.js"></script>
+<script>
+  uploadcare.registerTab('preview', uploadcareTabEffects)
+</script>
+
+{% endblock %}

@@ -69,9 +69,14 @@
                         </div>
 
                         <div class="img-div">
+                            {% if post.content %}
                             <div class="panel-body">
                                 <p>{{ post.content }}</p>
                             </div>
+                            {% endif %}
+                            {% if post.photo %}
+                            <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
+                            {% endif %}
                             <div class="footer">
                                 <a href="#"><i class="fa fa-heart-o"></i></a>
                                 <a href="#"><i class="fa fa-comment-o"></i></a>

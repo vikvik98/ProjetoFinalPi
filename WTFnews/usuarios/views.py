@@ -1,9 +1,10 @@
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
-from django.contrib.auth.models import User
+
 from perfil.models import Profile
 from usuarios.forms import SingUpForm, ChangePasswordForm
-from django.contrib.auth import authenticate, login
 
 
 class SingUpView(View):
@@ -73,6 +74,7 @@ class ChangePasswordView(View):
         if change_passwordform.is_valid():
             logged_profile.user.set_password(change_passwordform.cleaned_data['new_password'])
             logged_profile.user.save()
+            update_session_auth_hash(request, logged_profile.user)
             return redirect('show_logged_profile')
 
         return render(request, self.template_name, {'form': change_passwordform})
