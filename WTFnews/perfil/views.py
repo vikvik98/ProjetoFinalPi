@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Q
@@ -144,6 +145,7 @@ def invite(request, profile_id):
     guest_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
     logged_profile.invite(guest_profile)
+    messages.success(request, "Invitation sent successfully.")
     return redirect('index')
 
 
@@ -152,6 +154,7 @@ def cancel_invitation(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.cancel(logged_profile)
+    messages.success(request, "Invitation canceled successfully.")
     return redirect('index')
 
 
@@ -161,6 +164,7 @@ def accept(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.accept(logged_profile)
+    messages.success(request, "Invitation accepted successfully.")
     return redirect('index')
 
 
@@ -169,6 +173,7 @@ def decline(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.decline(logged_profile)
+    messages.success(request, "Invitation rejected successfully.")
     return redirect('index')
 
 
@@ -177,6 +182,7 @@ def undo_friendship(request, profile_id):
     ex_friend = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
     logged_profile.friends.remove(ex_friend)
+    messages.success(request, "Friendship successfully disbanded.")
     return redirect('index')
 
 

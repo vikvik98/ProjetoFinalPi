@@ -4,7 +4,7 @@ from django.views.generic.base import View
 
 from postagens.forms import AddPostForm
 from postagens.models import Post
-
+from django.contrib import messages
 
 class AddPostView(View):
     template_post = 'add_post.html'
@@ -23,6 +23,7 @@ class AddPostView(View):
             if photo:
                 post.photo = photo
             post.save()
+            messages.success(request, "Post added successfully.")
             return redirect('index')
 
         return render(request, self.template_post, {'form': add_postform})
@@ -31,7 +32,8 @@ class AddPostView(View):
 @login_required
 def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
-    if post.profile == request.user.profile:
+    if post.profile == request.user.profile or request.user.is_superuser:
         post.delete()
+        messages.success(request, "Successfully deleted post.")
         return redirect('index')
     raise PermissionError("You don't have permission to this operation.")
