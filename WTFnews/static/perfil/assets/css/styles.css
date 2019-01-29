@@ -432,7 +432,6 @@ grayscale:hover {
 .uploadcare--widget__button {
   font-size:18px !important;
   display:inline;
-  position:absolute;
   right:0px;
   top:18px;
 }

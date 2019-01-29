@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
@@ -44,8 +46,10 @@ class LoginCustomView(View):
             login(request, user)
             return redirect('index')
 
-        if getUser(request, username):
+        if getUser(request, username) and not getUser(request, username).is_active:
             return redirect('activate_profile', getUser(request, username).id)
+        else:
+            messages.error(request, "Verify your data input.")
 
         return redirect('login')
 
@@ -84,6 +88,7 @@ class ChangePasswordView(View):
 
 def activate_profile(request, id):
     user = User.objects.get(id=id)
+    login(request,user)
 
     return render(request, 'activate_profile.html', {'user': user})
 
@@ -92,6 +97,7 @@ def enable(request, id):
     user = User.objects.get(id=id)
     user.is_active = True
     user.save()
+    login(request, user)
     return redirect('index')
 
 

@@ -19,11 +19,20 @@
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
         <button type="submit" class="close"
-                data-dismiss="alert" aria-hidden="true">×</button>
+                data-dismiss="alert" aria-hidden="true">×
+        </button>
 
         {{form.non_field_errors}}
     </div>
     {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <p
+        {% if message.tags %} class="alert alert-danger"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     <p><a href="{% url 'password_reset' %}" class="forgot">Forgot password?</a></p>
     <p><a href="{% url 'signup' %}" class="forgot">Don't have an account? Sign-up here ...</a></p>
 </form>
