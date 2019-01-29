@@ -44,19 +44,8 @@
                 </div>
             </aside>
             <div class="col-xs-12 col-md-6">
-                {% if messages %}
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        {% for message in messages %}
-                        <p {% if message.tags %} class="alert alert-success" role="alert"{% endif %}>{{ message }}
-                            </p>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-
-              {% include 'posts.html' with posts=posts %}
-
+                {% include 'posts.html' with posts=posts %}
+                {% include 'feedback.html' with messages=messages %}
             </div>
             <aside class="col-xs-12 col-md-3">
 
