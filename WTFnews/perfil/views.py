@@ -186,13 +186,13 @@ def undo_friendship(request, profile_id):
     return redirect('index')
 
 
-@transaction.atomic
 class DisableProfileView(View):
     template_post = 'disable_profile.html'
 
     def get(self, request):
         return render(request, self.template_post)
 
+    @transaction.atomic
     def post(self, request):
         disable_profile = DisableProfileForm(request.POST)
         logged_profile = get_logged_profile(request)

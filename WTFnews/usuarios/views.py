@@ -8,13 +8,13 @@ from perfil.models import Profile
 from usuarios.forms import SingUpForm, ChangePasswordForm
 
 
-@transaction.atomic
 class SingUpView(View):
     template_name = 'register.html'
 
     def get(self, request):
         return render(request, self.template_name)
 
+    @transaction.atomic
     def post(self, request):
         form = SingUpForm(request.POST)
         if form.is_valid():
