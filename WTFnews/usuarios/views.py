@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 
@@ -7,6 +8,7 @@ from perfil.models import Profile
 from usuarios.forms import SingUpForm, ChangePasswordForm
 
 
+@transaction.atomic
 class SingUpView(View):
     template_name = 'register.html'
 

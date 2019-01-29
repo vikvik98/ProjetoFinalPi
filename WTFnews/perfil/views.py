@@ -186,6 +186,7 @@ def undo_friendship(request, profile_id):
     return redirect('index')
 
 
+@transaction.atomic
 class DisableProfileView(View):
     template_post = 'disable_profile.html'
 

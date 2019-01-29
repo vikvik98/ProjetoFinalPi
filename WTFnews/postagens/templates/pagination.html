@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="row text-center">
+    <ul class="pagination">
+        {% if posts.has_previous %}
+        <li><a href="?page=1">«</a></li>
+        <li><a href="?page={{ posts.previous_page_number }}"><</a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#">«</a></li>
+        <li class="page-item disabled"><a href="#"><</a></li>
+        {% endif %}
+        {% for num in posts.paginator.page_range %}
+        {% if posts.number == num %}
+        <li class="page-item active"><a href="#"><strong>{{ num }}</strong></a></li>
+        {% else %}
+        <li><a href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+        <li><a href="?page={{ posts.next_page_number }}">></a></li>
+        <li><a href="?page={{ posts.paginator.num_pages }}">»</a></li>
+        {% else %}
+        <li class="page-item disabled"><a href="#">></a></li>
+        <li class="page-item disabled"><a href="#">»</a></li>
+        {% endif %}
+    </ul>
+</div>
