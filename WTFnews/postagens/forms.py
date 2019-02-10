@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from pyuploadcare.dj.forms import ImageField
 
 
@@ -11,5 +12,5 @@ class AddPostForm(forms.Form):
         text = cleaned_data.get('text')
         photo = cleaned_data.get('photo')
         if not text and not photo:
-            raise forms.ValidationError("Please, add a photo or text.")
+            raise forms.ValidationError(_("Please, add a photo or text."))
         return cleaned_data

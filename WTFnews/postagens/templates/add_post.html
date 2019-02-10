@@ -1,4 +1,6 @@
 {% extends 'base_perfil.html' %}
+{% load i18n %}
+
 {% block body %}
 <div class="row" style="padding:20px">
     <div class="col-sm-3"></div>
@@ -7,7 +9,8 @@
             {% csrf_token %}
 
             <div class="form-group">
-                <input class="form-control" id="id_name" name="text" placeholder="Say something" autofocus>
+                <input class="form-control" id="id_name" name="text" placeholder="{% trans 'Say something' %}"
+                       autofocus>
             </div>
 
             <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
@@ -19,7 +22,7 @@
                     data-crop="4:4"/>
 
             <div class="form-group">
-                <button class="btn btn-warning btn-block" type="submit">Add Post</button>
+                <button class="btn btn-warning btn-block" type="submit">{% trans 'Add Post' %}</button>
             </div>
 
             {% if form.errors %}
@@ -43,11 +46,14 @@
   UPLOADCARE_IMAGES_ONLY = true;
   UPLOADCARE_PREVIEW_STEP = true;
   UPLOADCARE_CLEARABLE = true;
+
 </script>
 
-<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script><script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.js"></script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+<script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.js"></script>
 <script>
   uploadcare.registerTab('preview', uploadcareTabEffects)
+
 </script>
 
 {% endblock %}

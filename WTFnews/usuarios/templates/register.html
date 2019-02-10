@@ -1,5 +1,7 @@
 {% extends "base_usuario.html" %}
 {% load static %}
+{% load i18n %}
+
 {% block body %}
 
 <form class="form" action="{% url 'signup' %}" method="post">
@@ -14,16 +16,16 @@
     {% endfor %}
 
     <!--<div class="form-group">-->
-        <!--<input class="form-control" id="id_name" type="text" name="name" placeholder="Username" autofocus required>-->
+    <!--<input class="form-control" id="id_name" type="text" name="name" placeholder="Username" autofocus required>-->
     <!--</div>-->
     <!--<div class="form-group">-->
-        <!--<input class="form-control" id="id_email" type="email" name="email" placeholder="Email" required>-->
+    <!--<input class="form-control" id="id_email" type="email" name="email" placeholder="Email" required>-->
     <!--</div>-->
     <!--<div class="form-group">-->
-        <!--<input class="form-control" id="id_password" type="password" name="password" placeholder="Password" required>-->
+    <!--<input class="form-control" id="id_password" type="password" name="password" placeholder="Password" required>-->
     <!--</div>-->
     <div class="form-group">
-        <button class="btn btn-warning btn-block" type="submit">Create Account</button>
+        <button class="btn btn-warning btn-block" type="submit">{% trans 'Create Account' %}</button>
     </div>
 
     {% if form.errors %}
@@ -39,7 +41,7 @@
     </div>
     {% endif %}
 
-    <a href="{% url 'login' %}" class="forgot">Already got an account? Login here ...</a>
+    <a href="{% url 'login' %}" class="forgot">{% trans 'Already got an account? Login here' %} ...</a>
 </form>
 
 {% endblock %}

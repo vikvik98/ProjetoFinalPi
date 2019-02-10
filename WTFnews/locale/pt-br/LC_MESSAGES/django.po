@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-10 15:39-0300\n"
+"POT-Creation-Date: 2019-02-10 16:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,7 @@ msgstr "Inglês"
 msgid "Brazilian portuguese"
 msgstr "Portuguẽs do Brasil"
 
-#: perfil/forms.py:7
-msgid "Reason"
-msgstr "Motivo"
-
-#: perfil/forms.py:12
+#: perfil/forms.py:11
 msgid "Please, Check the reported data."
 msgstr "Por favor, cheque os dados passados"
 
@@ -41,9 +37,142 @@ msgstr "Este perfil já é seu convidado ou convidou você"
 msgid "You don't have permission to this operation."
 msgstr "Você não tem permissao para esta operação"
 
-#: perfil/templates/disable_profile.html:17
+#: perfil/templates/disable_profile.html:12
+msgid "Reason"
+msgstr "Motivo"
+
+#: perfil/templates/disable_profile.html:16
 msgid "Disable"
 msgstr "Desabilitar"
+
+#: perfil/templates/index.html:8
+msgid "Search Profile"
+msgstr "Nome do perfil"
+
+#: perfil/templates/index.html:9
+msgid "Search"
+msgstr "Pesuisar"
+
+#: perfil/templates/index.html:16
+msgid "Friends"
+msgstr "Amigos"
+
+#: perfil/templates/index.html:40 perfil/templates/logged_profile.html:79
+msgid "You have no friends! :( "
+msgstr "Vovê ainda não tem amigos! :("
+
+#: perfil/templates/index.html:55
+msgid "Suggestions"
+msgstr "Sugestões"
+
+#: perfil/templates/index.html:80
+msgid "No suggestions"
+msgstr "Sem sugestões"
+
+#: perfil/templates/index.html:88
+msgid "Submitted requests"
+msgstr "Convites enviados"
+
+#: perfil/templates/index.html:110
+msgid "No requests sent"
+msgstr "Nenhum convite enviado"
+
+#: perfil/templates/index.html:118
+msgid "Requests received"
+msgstr "Convites recebidos"
+
+#: perfil/templates/index.html:141
+msgid "No requests received"
+msgstr "Nenhum convite recebido"
+
+#: perfil/templates/logged_profile.html:31
+#: usuarios/templates/change_password.html:19
+#, fuzzy
+#| msgid "New password"
+msgid "Change password"
+msgstr "Nova senha"
+
+#: perfil/templates/logged_profile.html:36
+#, fuzzy
+#| msgid "Disable"
+msgid "Disable Profile"
+msgstr "Desabilitar"
+
+#: perfil/templates/logged_profile.html:42
+msgid "Stop being superuser"
+msgstr "Deixar de ser superusuario"
+
+#: perfil/templates/logged_profile.html:46
+msgid "You are not a super user"
+msgstr "Você não é um superusuario"
+
+#: perfil/templates/logged_profile.html:88
+msgid "All Profiles"
+msgstr "Todos os perfis"
+
+#: perfil/templates/logged_profile.html:109
+msgid "No profile to show!"
+msgstr "Nenhu perfil"
+
+#: perfil/templates/logged_profile.html:125
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#: perfil/templates/logged_profile.html:147
+msgid "No blocked profiles "
+msgstr "Sem perfis bloqueados"
+
+#: perfil/templates/profile.html:24
+msgid "(DISABLE)"
+msgstr "(DESATIVADO)"
+
+#: perfil/templates/profile.html:36
+msgid "Undo friendship"
+msgstr "Desfazer amizade"
+
+#: perfil/templates/profile.html:40
+msgid "Cancel invitation"
+msgstr "Cancelar convite"
+
+#: perfil/templates/profile.html:44
+msgid "Accept"
+msgstr "Aceitar"
+
+#: perfil/templates/profile.html:47
+msgid "Reject"
+msgstr "Rejeitar"
+
+#: perfil/templates/profile.html:52
+msgid "Invite"
+msgstr "Convidar"
+
+#: perfil/templates/profile.html:59
+msgid "Unblock User"
+msgstr "Desblokear usuario"
+
+#: perfil/templates/profile.html:64
+msgid "Block User"
+msgstr "Bloquear usuario"
+
+#: perfil/templates/profile.html:74
+#, fuzzy
+#| msgid "This profile is already a guest or invited you."
+msgid "This profile is a super user"
+msgstr "Este perfil já é seu convidado ou convidou você"
+
+#: perfil/templates/profile.html:78
+msgid "Make him a super user"
+msgstr "Torna-lo superuser"
+
+#: perfil/templates/profile.html:82
+#, fuzzy
+#| msgid "This profile is already a guest or invited you."
+msgid "This profile is not a super user"
+msgstr "Este perfil já é seu convidado ou convidou você"
+
+#: perfil/templates/search_profile.html:32
+msgid "No profile found"
+msgstr "Nenhum perfil encontrado"
 
 #: perfil/views.py:149
 msgid "Invitation sent successfully."
@@ -65,13 +194,21 @@ msgstr "Convite rejeitado"
 msgid "Friendship successfully disbanded."
 msgstr "Amigo removido com sucesso"
 
-#: postagens/forms.py:8
+#: postagens/forms.py:15
+msgid "Please, add a photo or text."
+msgstr "Por favor, insira uma foto ou texto"
+
+#: postagens/templates/add_post.html:12
 msgid "Say something"
 msgstr "Digite algo"
 
-#: postagens/forms.py:16
-msgid "Please, add a photo or text."
-msgstr "Por favor, insira uma foto ou texto"
+#: postagens/templates/add_post.html:25
+msgid "Add Post"
+msgstr "Adicionar post"
+
+#: postagens/templates/posts.html:49
+msgid "Nothing to show"
+msgstr "Nada para mostrar"
 
 #: postagens/views.py:28
 msgid "Post added successfully."
@@ -81,7 +218,7 @@ msgstr "Postado com sucesso"
 msgid "Successfully deleted post."
 msgstr "Post removido com sucesso"
 
-#: usuarios/forms.py:9
+#: usuarios/forms.py:9 usuarios/templates/login.html:12
 msgid "Username"
 msgstr "Nome de usuário"
 
@@ -89,7 +226,7 @@ msgstr "Nome de usuário"
 msgid "Email"
 msgstr ""
 
-#: usuarios/forms.py:12
+#: usuarios/forms.py:12 usuarios/templates/login.html:16
 msgid "Password"
 msgstr "Senha"
 
@@ -124,3 +261,57 @@ msgstr "Nova senha"
 #: usuarios/forms.py:51
 msgid "Confirm new password"
 msgstr "Confirme a nova senha"
+
+#: usuarios/templates/activate_profile.html:10
+msgid "Your profile is turned off, Do you want to enable?"
+msgstr "Seu perfil está desativado, você deseja ativa-lo?"
+
+#: usuarios/templates/activate_profile.html:13
+#, fuzzy
+#| msgid "Disable"
+msgid "Enable"
+msgstr "Desabilitar"
+
+#: usuarios/templates/login.html:19
+msgid "Log In"
+msgstr "Logar"
+
+#: usuarios/templates/login.html:40
+#, fuzzy
+#| msgid "Old password"
+msgid "Forgot password?"
+msgstr "Senha atual"
+
+#: usuarios/templates/login.html:41
+msgid "Don't have an account? Sign-up here"
+msgstr "Não tem uma conta? Registrar"
+
+#: usuarios/templates/password_reset.html:14
+msgid "Reset"
+msgstr "Recuperar"
+
+#: usuarios/templates/password_reset_complete.html:7
+msgid "You password has been set"
+msgstr "Sua senha foi alterada"
+
+#: usuarios/templates/password_reset_complete.html:9
+msgid "Login here"
+msgstr "Logar"
+
+#: usuarios/templates/password_reset_confirm.html:20
+#, fuzzy
+#| msgid "Password"
+msgid "Reset Password"
+msgstr "Senha"
+
+#: usuarios/templates/password_reset_done.html:7
+msgid "An email has been sent with instructions to reset your password"
+msgstr "Um email com instruções para redefinir a senha foi enviado "
+
+#: usuarios/templates/register.html:28
+msgid "Create Account"
+msgstr "Criar conta"
+
+#: usuarios/templates/register.html:44
+msgid "Already got an account? Login here"
+msgstr "Você já é cadastrado? Logar"

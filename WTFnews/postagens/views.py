@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from postagens.forms import AddPostForm
@@ -10,7 +11,8 @@ class AddPostView(View):
     template_post = 'add_post.html'
 
     def get(self, request):
-        return render(request, self.template_post)
+        form = AddPostForm()
+        return render(request, self.template_post, {'form': form})
 
     def post(self, request):
         add_postform = AddPostForm(request.POST)
@@ -23,7 +25,7 @@ class AddPostView(View):
             if photo:
                 post.photo = photo
             post.save()
-            messages.success(request, "Post added successfully.")
+            messages.success(request, _("Post added successfully."))
             return redirect('index')
 
         return render(request, self.template_post, {'form': add_postform})
@@ -34,6 +36,6 @@ def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
     if post.profile == request.user.profile or request.user.is_superuser:
         post.delete()
-        messages.success(request, "Successfully deleted post.")
+        messages.success(request, _("Successfully deleted post."))
         return redirect('index')
-    raise PermissionError("You don't have permission to this operation.")
+    raise PermissionError(_("You don't have permission to this operation."))

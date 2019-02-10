@@ -1,51 +1,52 @@
 {% load static %}
+{% load i18n %}
 
 <div class="container img-container">
-  <div id="upload-div"></div>
-  {% if posts %}
-  {% for post in posts %}
-  <div class="container img-container">
-    <div class="post-box full-width">
-      <div class="post-list">
-        <div class="post-body">
-          <a href="{% url 'show_profile' post.profile.id %}">
-            <img alt="Image" class="img img-responsive img-circle"
-                 src="{% static 'perfil/assets/img/profile.png' %}">
-            <div class="name-box">
-              <h4>{{ post.profile.name }}</h4>
-              <span>{{ post.date }}</span>
+    <div id="upload-div"></div>
+    {% if posts %}
+    {% for post in posts %}
+    <div class="container img-container">
+        <div class="post-box full-width">
+            <div class="post-list">
+                <div class="post-body">
+                    <a href="{% url 'show_profile' post.profile.id %}">
+                        <img alt="Image" class="img img-responsive img-circle"
+                             src="{% static 'perfil/assets/img/profile.png' %}">
+                        <div class="name-box">
+                            <h4>{{ post.profile.name }}</h4>
+                            <span>{{ post.date }}</span>
+                        </div>
+                    </a>
+                    {% if post.profile == request.user.profile or request.user.is_superuser %}
+                    <a onclick="return confirm('Are you sure you want to delete this item?')"
+                       href="{% url 'delete_post' post.id %}"><i class="fa fa-remove"></i></a>
+                    {% endif %}
+                </div>
             </div>
-          </a>
-          {% if post.profile == request.user.profile or request.user.is_superuser %}
-          <a onclick="return confirm('Are you sure you want to delete this item?')"
-             href="{% url 'delete_post' post.id %}"><i class="fa fa-remove"></i></a>
-          {% endif %}
         </div>
-      </div>
+        <div class="img-div">
+            {% if post.content %}
+            <div class="panel-body">
+                <p>{{ post.content }}</p>
+            </div>
+            {% endif %}
+            {% if post.photo %}
+            <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
+            {% endif %}
+            <div class="footer">
+                <a href="#"><i class="fa fa-heart-o"></i></a>
+                <a href="#"><i class="fa fa-comment-o"></i></a>
+            </div>
+            <div class="more-section">
+                <label>10 Likes</label>
+            </div>
+        </div>
     </div>
-    <div class="img-div">
-      {% if post.content %}
-      <div class="panel-body">
-        <p>{{ post.content }}</p>
-      </div>
-      {% endif %}
-      {% if post.photo %}
-      <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
-      {% endif %}
-      <div class="footer">
-        <a href="#"><i class="fa fa-heart-o"></i></a>
-        <a href="#"><i class="fa fa-comment-o"></i></a>
-      </div>
-      <div class="more-section">
-        <label>10 Likes</label>
-      </div>
+    {% endfor %}
+    {% include 'pagination.html' with posts=posts %}
+    {% else %}
+    <div class="img-div" style="margin-top:50px;">
+        <strong><h1 align="center">{% trans 'Nothing to show' %}</h1></strong>
     </div>
-  </div>
-  {% endfor %}
-  {% include 'pagination.html' with posts=posts %}
-  {% else %}
-  <div class="img-div" style="margin-top:50px;">
-    <strong><h1 align="center">Nothing to show</h1></strong>
-  </div>
-  {% endif %}
+    {% endif %}
 </div>
