@@ -1,20 +1,20 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 
 from perfil.models import Profile
-from usuarios.forms import SingUpForm, ChangePasswordForm
+from usuarios.forms import SingUpForm, ChangePasswordForm, CustomAuthenticationForm
 
 
 class SingUpView(View):
     template_name = 'register.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        form = SingUpForm()
+        return render(request, self.template_name, {'form': form})
 
     @transaction.atomic
     def post(self, request):
@@ -32,63 +32,39 @@ class SingUpView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class LoginCustomView(View):
+class LoginCustomView(LoginView):
+    authentication_form = CustomAuthenticationForm
     template_name = 'login.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request, *args, **kwargs):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('index')
-
-        if getUser(request, username) and not getUser(request, username).is_active:
-            return redirect('activate_profile', getUser(request, username).id)
-        else:
-            messages.error(request, "Verify your data input.")
-
-        return redirect('login')
+    def form_valid(self, form):
+        user = form.get_user()
+        if not user.is_active:
+            return redirect('activate_profile', user.id)
+        login(self.request, user)
+        return redirect(self.get_success_url())
 
 
 class ChangePasswordView(View):
     template_name = 'change_password.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        form = ChangePasswordForm(request.user)
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        logged_profile = request.user.profile
-        change_passwordform = ChangePasswordForm(request.POST)
-        change_passwordform.valid = True
-        change_passwordform.is_valid()
-        old_password = change_passwordform.cleaned_data['old_password']
-        new_password = change_passwordform.cleaned_data['new_password']
-        co_new_password = change_passwordform.cleaned_data['co_new_password']
+        form = ChangePasswordForm(data=request.POST, user=request.user)
 
-        if not logged_profile.user.check_password(old_password):
-            change_passwordform.add_error("The old password is not correct.")
-            change_passwordform.valid = False
-
-        if new_password != co_new_password:
-            change_passwordform.add_error("The new password is not the same as the password confirmation.")
-            change_passwordform.valid = False
-
-        if change_passwordform.is_valid():
-            logged_profile.user.set_password(change_passwordform.cleaned_data['new_password'])
-            logged_profile.user.save()
-            update_session_auth_hash(request, logged_profile.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, request.user)
             return redirect('show_logged_profile')
 
-        return render(request, self.template_name, {'form': change_passwordform})
+        return render(request, self.template_name, {'form': form})
 
 
 def activate_profile(request, id):
     user = User.objects.get(id=id)
-    login(request,user)
+    login(request, user)
 
     return render(request, 'activate_profile.html', {'user': user})
 

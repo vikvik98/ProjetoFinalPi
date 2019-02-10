@@ -18,11 +18,12 @@
 
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
-        <button type="submit" class="close"
-                data-dismiss="alert" aria-hidden="true">×
-        </button>
-
-        {{form.non_field_errors}}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+        {{ form.non_field_errors }}
     </div>
     {% endif %}
 
