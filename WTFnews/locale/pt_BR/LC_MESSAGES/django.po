@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-10 16:37-0300\n"
+"POT-Creation-Date: 2019-02-10 20:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: WTFnews/settings.py:122
+#: WTFnews/settings.py:123
 msgid "English"
 msgstr "Inglês"
 
-#: WTFnews/settings.py:123
+#: WTFnews/settings.py:124
 msgid "Brazilian portuguese"
 msgstr "Portuguẽs do Brasil"
 
@@ -59,7 +59,7 @@ msgstr "Amigos"
 
 #: perfil/templates/index.html:40 perfil/templates/logged_profile.html:79
 msgid "You have no friends! :( "
-msgstr "Vovê ainda não tem amigos! :("
+msgstr "Nenhum amigo! :("
 
 #: perfil/templates/index.html:55
 msgid "Suggestions"
