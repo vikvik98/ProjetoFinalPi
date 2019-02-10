@@ -1,14 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from perfil.forms import DisableProfileForm
 from perfil.models import Profile, Invitation
 from postagens.models import Post
-from django.core.paginator import Paginator
 
 
 @login_required
@@ -137,7 +138,7 @@ def show_logged_profile(request):
                    "friends_list": friends_list,
                    "blocked_list": blocked_list,
                    "all_profiles": all_profiles,
-                   'posts':posts})
+                   'posts': posts})
 
 
 @login_required
@@ -145,7 +146,7 @@ def invite(request, profile_id):
     guest_profile = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
     logged_profile.invite(guest_profile)
-    messages.success(request, "Invitation sent successfully.")
+    messages.success(request, _("Invitation sent successfully."))
     return redirect('index')
 
 
@@ -154,7 +155,7 @@ def cancel_invitation(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.cancel(logged_profile)
-    messages.success(request, "Invitation canceled successfully.")
+    messages.success(request, _("Invitation canceled successfully."))
     return redirect('index')
 
 
@@ -164,7 +165,7 @@ def accept(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.accept(logged_profile)
-    messages.success(request, "Invitation accepted successfully.")
+    messages.success(request, _("Invitation accepted successfully."))
     return redirect('index')
 
 
@@ -173,7 +174,7 @@ def decline(request, invitation_id):
     invitation = Invitation.objects.get(id=invitation_id)
     logged_profile = get_logged_profile(request)
     invitation.decline(logged_profile)
-    messages.success(request, "Invitation rejected successfully.")
+    messages.success(request, _("Invitation rejected successfully."))
     return redirect('index')
 
 
@@ -182,7 +183,7 @@ def undo_friendship(request, profile_id):
     ex_friend = Profile.objects.get(id=profile_id)
     logged_profile = get_logged_profile(request)
     logged_profile.friends.remove(ex_friend)
-    messages.success(request, "Friendship successfully disbanded.")
+    messages.success(request, _("Friendship successfully disbanded."))
     return redirect('index')
 
 
@@ -190,7 +191,8 @@ class DisableProfileView(View):
     template_post = 'disable_profile.html'
 
     def get(self, request):
-        return render(request, self.template_post)
+        form = DisableProfileForm()
+        return render(request, self.template_post, {'form': form})
 
     @transaction.atomic
     def post(self, request):

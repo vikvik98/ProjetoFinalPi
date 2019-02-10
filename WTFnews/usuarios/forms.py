@@ -1,72 +1,51 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
+
 
 class SingUpForm(forms.Form):
-    name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    password = forms.CharField(required=True)
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': _('Username'), 'autofocus': True}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Email')}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Password')}))
 
-    def is_valid(self):
-        valid = True
-        if not super(SingUpForm, self).is_valid():
-            self.add_error('Please, Check the reported data.')
-            valid = False
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if User.objects.filter(username=self.cleaned_data['name']).exists():
+            raise forms.ValidationError(_('This username is already being used.'))
+        return name
 
-        user_exists = User.objects.filter(username=self.cleaned_data['name']).exists()
-        if user_exists:
-            self.add_error('This email is already being used.')
-            valid = False
-
-        return valid
-
-    def add_error(self, message):
-        errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
-                                         forms.utils.ErrorList())
-
-        errors.append(message)
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=self.cleaned_data['email']).exists():
+            raise forms.ValidationError(_('This email is already being used.'))
+        return email
 
 
+class CustomAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': _("Invalid Email and/or password."),
+    }
 
-class ChangePasswordForm(forms.Form):
-    old_password = forms.CharField(required=True)
-    new_password = forms.CharField(required=True)
-    co_new_password = forms.CharField(required=True)
-    valid = True
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        return username.lower()
 
-    def is_valid(self):
-
-        if not super(ChangePasswordForm, self).is_valid():
-            self.add_error('Please, Check the reported data.')
-            self.valid = False
-
-        # if not self.check_old_password():
-        #     self.add_error("The old password is not correct.")
-        #     valid = False
-        #
-        # if not self.check_new_old_password():
-        #     self.add_error("The new password is not the same as the password confirmation.")
-        #     valid = False
-
-        return self.valid
-
-    def add_error(self, message):
-        errors = self._errors.setdefault(forms.forms.NON_FIELD_ERRORS,
-                                         forms.utils.ErrorList())
-
-        errors.append(message)
+    def confirm_login_allowed(self, user):
+        pass
 
 
-    # def check_old_password(self,logged_profile):
-    #
-    #     if self.cleaned_data['old_password'] == logged_profile.email:
-    #         return True
-    #     else:
-    #         return False
-    #
-    #
-    # def check_new_old_password(self):
-    #     if self.cleaned_data['new_password'] == self.cleaned_data['co_new_password']:
-    #         return True
-    #     else:
-    #         return False
+class ChangePasswordForm(PasswordChangeForm):
+    error_messages = {
+        'password_mismatch': _("The new password is not the same as the password confirmation."),
+        'password_incorrect': _("Your old password was entered incorrectly. Please enter it again."),
+    }
 
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autofocus': True, 'placeholder': _('Old password')}))
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('New password')}))
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Confirm new password')}))

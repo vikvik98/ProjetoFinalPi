@@ -1,0 +1,316 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-10 19:24-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: WTFnews/settings.py:123
+msgid "English"
+msgstr ""
+
+#: WTFnews/settings.py:124
+msgid "Brazilian portuguese"
+msgstr ""
+
+#: perfil/forms.py:11
+msgid "Please, Check the reported data."
+msgstr ""
+
+#: perfil/models.py:41
+msgid "This profile is already a guest or invited you."
+msgstr ""
+
+#: perfil/models.py:46 postagens/views.py:41
+msgid "You don't have permission to this operation."
+msgstr ""
+
+#: perfil/templates/disable_profile.html:12
+msgid "Reason"
+msgstr ""
+
+#: perfil/templates/disable_profile.html:16
+msgid "Disable"
+msgstr ""
+
+#: perfil/templates/index.html:8
+msgid "Search Profile"
+msgstr ""
+
+#: perfil/templates/index.html:9
+msgid "Search"
+msgstr ""
+
+#: perfil/templates/index.html:16
+msgid "Friends"
+msgstr ""
+
+#: perfil/templates/index.html:40 perfil/templates/logged_profile.html:79
+msgid "You have no friends! :( "
+msgstr ""
+
+#: perfil/templates/index.html:55
+msgid "Suggestions"
+msgstr ""
+
+#: perfil/templates/index.html:80
+msgid "No suggestions"
+msgstr ""
+
+#: perfil/templates/index.html:88
+msgid "Submitted requests"
+msgstr ""
+
+#: perfil/templates/index.html:110
+msgid "No requests sent"
+msgstr ""
+
+#: perfil/templates/index.html:118
+msgid "Requests received"
+msgstr ""
+
+#: perfil/templates/index.html:141
+msgid "No requests received"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:31
+#: usuarios/templates/change_password.html:19
+msgid "Change password"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:36
+msgid "Disable Profile"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:42
+msgid "Stop being superuser"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:46
+msgid "You are not a super user"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:88
+msgid "All Profiles"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:109
+msgid "No profile to show!"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:125
+msgid "Blocked"
+msgstr ""
+
+#: perfil/templates/logged_profile.html:147
+msgid "No blocked profiles "
+msgstr ""
+
+#: perfil/templates/profile.html:24
+msgid "(DISABLE)"
+msgstr ""
+
+#: perfil/templates/profile.html:36
+msgid "Undo friendship"
+msgstr ""
+
+#: perfil/templates/profile.html:40
+msgid "Cancel invitation"
+msgstr ""
+
+#: perfil/templates/profile.html:44
+msgid "Accept"
+msgstr ""
+
+#: perfil/templates/profile.html:47
+msgid "Reject"
+msgstr ""
+
+#: perfil/templates/profile.html:52
+msgid "Invite"
+msgstr ""
+
+#: perfil/templates/profile.html:57
+msgid "Are you sure you want to unblock this profile?"
+msgstr ""
+
+#: perfil/templates/profile.html:59
+msgid "Unblock User"
+msgstr ""
+
+#: perfil/templates/profile.html:62
+msgid "Are you sure you want to block this profile?"
+msgstr ""
+
+#: perfil/templates/profile.html:64
+msgid "Block User"
+msgstr ""
+
+#: perfil/templates/profile.html:74
+msgid "This profile is a super user"
+msgstr ""
+
+#: perfil/templates/profile.html:78
+msgid "Make him a super user"
+msgstr ""
+
+#: perfil/templates/profile.html:82
+msgid "This profile is not a super user"
+msgstr ""
+
+#: perfil/templates/search_profile.html:32
+msgid "No profile found"
+msgstr ""
+
+#: perfil/views.py:149
+msgid "Invitation sent successfully."
+msgstr ""
+
+#: perfil/views.py:158
+msgid "Invitation canceled successfully."
+msgstr ""
+
+#: perfil/views.py:168
+msgid "Invitation accepted successfully."
+msgstr ""
+
+#: perfil/views.py:177
+msgid "Invitation rejected successfully."
+msgstr ""
+
+#: perfil/views.py:186
+msgid "Friendship successfully disbanded."
+msgstr ""
+
+#: postagens/forms.py:15
+msgid "Please, add a photo or text."
+msgstr ""
+
+#: postagens/templates/add_post.html:12
+msgid "Say something"
+msgstr ""
+
+#: postagens/templates/add_post.html:25
+msgid "Add Post"
+msgstr ""
+
+#: postagens/templates/posts.html:21
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: postagens/templates/posts.html:49
+msgid "Nothing to show"
+msgstr ""
+
+#: postagens/views.py:28
+msgid "Post added successfully."
+msgstr ""
+
+#: postagens/views.py:39
+msgid "Successfully deleted post."
+msgstr ""
+
+#: usuarios/forms.py:9 usuarios/templates/login.html:12
+msgid "Username"
+msgstr ""
+
+#: usuarios/forms.py:10
+msgid "Email"
+msgstr ""
+
+#: usuarios/forms.py:12 usuarios/templates/login.html:16
+msgid "Password"
+msgstr ""
+
+#: usuarios/forms.py:17
+msgid "This username is already being used."
+msgstr ""
+
+#: usuarios/forms.py:23
+msgid "This email is already being used."
+msgstr ""
+
+#: usuarios/forms.py:29
+msgid "Invalid Email and/or password."
+msgstr ""
+
+#: usuarios/forms.py:42
+msgid "The new password is not the same as the password confirmation."
+msgstr ""
+
+#: usuarios/forms.py:43
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+
+#: usuarios/forms.py:47
+msgid "Old password"
+msgstr ""
+
+#: usuarios/forms.py:49
+msgid "New password"
+msgstr ""
+
+#: usuarios/forms.py:51
+msgid "Confirm new password"
+msgstr ""
+
+#: usuarios/templates/activate_profile.html:10
+msgid "Your profile is turned off, Do you want to enable?"
+msgstr ""
+
+#: usuarios/templates/activate_profile.html:13
+msgid "Enable"
+msgstr ""
+
+#: usuarios/templates/login.html:19
+msgid "Log In"
+msgstr ""
+
+#: usuarios/templates/login.html:40
+msgid "Forgot password?"
+msgstr ""
+
+#: usuarios/templates/login.html:41
+msgid "Don't have an account? Sign-up here"
+msgstr ""
+
+#: usuarios/templates/password_reset.html:14
+msgid "Reset"
+msgstr ""
+
+#: usuarios/templates/password_reset_complete.html:7
+msgid "You password has been set"
+msgstr ""
+
+#: usuarios/templates/password_reset_complete.html:9
+msgid "Login here"
+msgstr ""
+
+#: usuarios/templates/password_reset_confirm.html:20
+msgid "Reset Password"
+msgstr ""
+
+#: usuarios/templates/password_reset_done.html:7
+msgid "An email has been sent with instructions to reset your password"
+msgstr ""
+
+#: usuarios/templates/register.html:28
+msgid "Create Account"
+msgstr ""
+
+#: usuarios/templates/register.html:44
+msgid "Already got an account? Login here"
+msgstr ""

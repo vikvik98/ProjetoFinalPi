@@ -1,18 +1,20 @@
 {% extends "base_usuario.html" %}
 {% load static %}
+{% load i18n %}
+
 {% block body %}
 
 <div class="form">
     {% csrf_token %}
     <div class="illustration"><img src="{% static 'usuarios/assets/img/logo.png' %}"></div>
-    <h2 class="vvzhL ">Your profile is turned off, Do you want to enable?</h2>
+    <h2 class="vvzhL ">{% trans 'Your profile is turned off, Do you want to enable?' %}</h2>
 
     <a href="{% url 'enable' user.id %}">
-        <button class="btn btn-warning btn-block" >Enable</button>
+        <button class="btn btn-warning btn-block" >{% trans 'Enable' %}</button>
     </a>
 
     <a href="{% url 'login' %}">
-        <button class="btn btn-warning btn-block" >Cancel</button>
+        <button class="btn btn-warning btn-block" >{% trans 'Cancel1 %}</button>
     </a>
 
 </div>
