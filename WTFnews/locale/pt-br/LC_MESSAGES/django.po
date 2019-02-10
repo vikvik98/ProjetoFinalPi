@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-10 16:20-0300\n"
+"POT-Creation-Date: 2019-02-10 16:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr "Nome do perfil"
 
 #: perfil/templates/index.html:9
 msgid "Search"
-msgstr "Pesuisar"
+msgstr "Pesquisar"
 
 #: perfil/templates/index.html:16
 msgid "Friends"
