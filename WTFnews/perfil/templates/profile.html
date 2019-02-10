@@ -7,75 +7,82 @@
         <div class="col-sm-4">
             <!-- Informaçoes do perfil -->
             <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-				<div class="profile-userpic">
+                <div class="profile-userpic">
                     <img class="img-circle" height="100px"
                          src="{% static 'perfil/assets/img/profile.png' %}"
                          style="border: 2px solid #ff9900;">
-				</div>
-				<div class="profile-usertitle">
+                </div>
+                <div class="profile-usertitle">
                     {% if profile.user.is_active %}
-					<div class="profile-usertitle-name">
+                    <div class="profile-usertitle-name">
                         <strong style="color:#ff9900;font-size:16px;">{{profile.name}}</strong>
-					</div>
+                    </div>
                     {% else %}
                     <div class="profile-usertitle-name">
-                        <strong style="color:#ff9900;font-size:16px;">{{profile.name}} (DISABLE)</strong>
-					</div>
+                        <strong style="color:#ff9900;font-size:16px;">{{profile.name}} {% trans '(DISABLE)' %}</strong>
+                    </div>
 
                     {% endif %}
-					<div class="profile-usertitle-job">
-						{{profile.user.email}}
-					</div>
-				</div>
+                    <div class="profile-usertitle-job">
+                        {{profile.user.email}}
+                    </div>
+                </div>
                 <br>
-				<div class="profile-userbuttons">
+                <div class="profile-userbuttons">
                     {% if is_friend %}
                     <a href="{% url 'undo_friendship' profile.id %}">
-                        <button type="button" class="btn btn-danger btn-sm">Undo friendship</button></a>
+                        <button type="button" class="btn btn-danger btn-sm">{% trans 'Undo friendship' %}</button>
+                    </a>
                     {% elif is_guest %}
                     <a href="{% url 'cancel_invitation' invitation.id %}">
-					<button type="button" class="btn btn-danger btn-sm">Cancel invitation</button></a>
+                        <button type="button" class="btn btn-danger btn-sm">{% trans 'Cancel invitation' %}</button>
+                    </a>
                     {% elif is_inviter %}
                     <a href="{% url 'accept' invitation.id %}">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button></a>
+                        <button type="button" class="btn btn-success btn-sm">{% trans 'Accept' %}</button>
+                    </a>
                     <a href="{% url 'decline' invitation.id %}">
-                        <button type="button" class="btn btn-danger btn-sm">Reject</button></a>
+                        <button type="button" class="btn btn-danger btn-sm">{% trans 'Reject' %}</button>
+                    </a>
                     {% else %}
                     {% if not profile in logged_profile.blocked.all %}
                     <a href="{% url 'invite' profile.id %}">
-                        <button type="button" class="btn btn-success btn-sm">Invite</button></a>
+                        <button type="button" class="btn btn-success btn-sm">{% trans 'Invite' %}</button>
+                    </a>
                     {% endif %}
                     {% endif %}
                     {% if profile in logged_profile.blocked.all %}
-                    <a onclick="return confirm('Are you sure you want to unblock this profile?')" href="{% url 'unblock_user' profile.id %}">
-                        <button type="button" class="btn btn-success btn-sm">Unblock User</button>
+                    <a onclick="return confirm('Are you sure you want to unblock this profile?')"
+                       href="{% url 'unblock_user' profile.id %}">
+                        <button type="button" class="btn btn-success btn-sm">{% trans 'Unblock User' %}</button>
                     </a>
                     {% else %}
-                    <a onclick="return confirm('Are you sure you want to block this profile?')" href="{% url 'block_user' profile.id %}">
-                        <button type="button" class="btn btn-danger btn-sm">Block User</button>
+                    <a onclick="return confirm('Are you sure you want to block this profile?')"
+                       href="{% url 'block_user' profile.id %}">
+                        <button type="button" class="btn btn-danger btn-sm">{% trans 'Block User' %}</button>
                     </a>
                     {% endif %}
-				</div>
-				<div class="profile-usermenu">
-					<ul class="nav">
-						<li>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
                             {% if profile.is_superuser %}
-							<a target="_blank">
-							<i class="glyphicon glyphicon-ok"></i>
-                                This profile is a super user </a>
+                            <a target="_blank">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                {% trans 'This profile is a super user' %} </a>
                             {% elif logged_profile.is_superuser %}
                             <a href="{% url 'make_superuser' profile.id %}">
                                 <i class="glyphicon glyphicon-ok"></i>
-                                Make him a super user </a>
+                                {% trans 'Make him a super user' %} </a>
                             {% else %}
                             <a target="_blank">
                                 <i class="glyphicon glyphicon-remove"></i>
-                                This profile is not a super user </a>
+                                {% trans 'This profile is not a super user' %} </a>
                             {% endif %}
-						</li>
-					</ul>
-				</div>
-			</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <!-- Posts -->
         <div class="col-sm-6">

@@ -1,5 +1,5 @@
 from django import forms
-
+from django.utils.translation import gettext_lazy as _
 
 
 class DisableProfileForm(forms.Form):
@@ -8,9 +8,8 @@ class DisableProfileForm(forms.Form):
     def is_valid(self):
         valid = True
         if not super(DisableProfileForm, self).is_valid():
-            self.add_error('Please, Check the reported data.')
+            self.add_error(_('Please, Check the reported data.'))
             valid = False
-
 
         return valid
 

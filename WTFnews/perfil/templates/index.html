@@ -4,15 +4,15 @@
 {% block body %}
 <section class="newsfeed">
     <form class="form-inline my-2 my-lg-0 text-center">
-        <input name="search" aria-label="Search" class="form-control mr-sm-2" placeholder="Search Profile" type="search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input name="search" aria-label="Search" class="form-control mr-sm-2" placeholder="{% trans 'Search Profile' %}" type="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans 'Search' %}</button>
     </form>
     <div class="container-fluid">
         <div class="row">
             <aside class="col-xs-12 col-md-3">
                 <div class="profile-box full-width">
                     <div class="profile-title">
-                        <h3>Friends</h3>
+                        <h3>{% trans 'Friends' %}</h3>
                     </div>
                     <div class="profiles-list" style="overflow-y:scroll;">
 
@@ -36,7 +36,7 @@
                         {% else %}
                         <div class="profile-body">
                             <div class="name-box">
-                                <h4>You have no friends! :( </h4>
+                                <h4>{% trans 'You have no friends! :( ' %}</h4>
                             </div>
                         </div>
                         {% endif %}
@@ -51,7 +51,7 @@
 
                 <div class="profile-box full-width" >
                     <div class="profile-title" >
-                        <h3>Suggestions</h3>
+                        <h3>{% trans 'Suggestions' %}</h3>
 
                     </div>
 
@@ -76,7 +76,7 @@
                         {% else %}
                         <div class="profile-body">
                             <div class="name-box">
-                                <h4>No suggestions</h4>
+                                <h4>{% trans 'No suggestions' %}</h4>
                             </div>
                         </div>
                         {% endif %}
@@ -84,7 +84,7 @@
                 </div>
                 <div class="profile-box full-width">
                     <div class="profile-title">
-                            <h3>Submitted requests</h3>
+                            <h3>{% trans 'Submitted requests' %}</h3>
                         </div>
                     <div class="profiles-list" style="overflow-y:scroll;">
 
@@ -106,7 +106,7 @@
                         {% else %}
                         <div class="profile-body">
                             <div class="name-box">
-                                <h4>No requests sent</h4>
+                                <h4>{% trans 'No requests sent' %}</h4>
                             </div>
                         </div>
                         {% endif %}
@@ -114,7 +114,7 @@
                 </div>
                 <div class="profile-box full-width">
                     <div class="profile-title">
-                        <h3>Requests received</h3>
+                        <h3>{% trans 'Requests received' %}</h3>
                     </div>
                     <div class="profiles-list" style="overflow-y:scroll;">
 
@@ -137,7 +137,7 @@
                         {% else %}
                         <div class="profile-body">
                             <div class="name-box">
-                                <h4>No requests received</h4>
+                                <h4>{% trans 'No requests received' %}</h4>
                             </div>
                         </div>
                         {% endif %}

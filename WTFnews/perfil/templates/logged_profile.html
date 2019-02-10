@@ -7,47 +7,47 @@
         <div class="col-sm-3">
             <!-- Informaçoes do perfil -->
             <div class="well profile col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-				<div class="profile-userpic">
+                <div class="profile-userpic">
                     <img class="img-circle" height="100px"
                          src="{% static 'perfil/assets/img/profile.png' %}"
                          style="border: 2px solid #ff9900;">
-				</div>
-				<div class="profile-usertitle">
-					<div class="profile-usertitle-name">
-						<strong style="color:#ff9900;font-size:16px;">{{logged_profile.name}}</strong>
-					</div>
-					<div class="profile-usertitle-job">
-						{{logged_profile.user.email}}
-					</div>
-				</div>
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        <strong style="color:#ff9900;font-size:16px;">{{logged_profile.name}}</strong>
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{logged_profile.user.email}}
+                    </div>
+                </div>
                 <br>
-				<div class="profile-usermenu">
-					<ul class="nav">
-						<li>
-							<a href="{% url 'change_password' %}">
-							<i class="glyphicon glyphicon-user"></i>
-							Change password</a>
-						</li>
+                <div class="profile-usermenu">
+                    <ul class="nav">
                         <li>
-							<a href="{% url 'disable_profile' %}">
-							<i class="glyphicon glyphicon-user"></i>
-							Disable Profile</a>
-						</li>
-						<li>
+                            <a href="{% url 'change_password' %}">
+                                <i class="glyphicon glyphicon-user"></i>
+                                {% trans 'Change password' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'disable_profile' %}">
+                                <i class="glyphicon glyphicon-user"></i>
+                                {% trans 'Disable Profile' %}</a>
+                        </li>
+                        <li>
                             {% if logged_profile.is_superuser %}
-							<a href="{% url 'give_up_superuser' %}">
-							<i class="glyphicon glyphicon-remove"></i>
-                                Stop being superuser </a>
+                            <a href="{% url 'give_up_superuser' %}">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                {% trans 'Stop being superuser' %} </a>
                             {% else %}
                             <a target="_blank">
                                 <i class="glyphicon glyphicon-remove"></i>
-                                You are not a super user </a>
+                                {% trans 'You are not a super user' %}</a>
                             {% endif %}
-						</li>
-						<li>
-					</ul>
-				</div>
-			</div>
+                        </li>
+                        <li>
+                    </ul>
+                </div>
+            </div>
             <!-- Amigos -->
             <div class="profile-box full-width" style="margin-bottom: 20px;">
                 <div class="profile-title">
@@ -74,7 +74,7 @@
                     {% else %}
                     <div class="profile-body">
                         <div class="name-box">
-                            <h4>You have no friends! :( </h4>
+                            <h4>{% trans 'You have no friends! :( ' %}</h4>
                         </div>
                     </div>
                     {% endif %}
@@ -83,7 +83,7 @@
             {% if logged_profile.is_superuser %}
             <div class="profile-box full-width" style="margin-bottom: 20px;">
                 <div class="profile-title">
-                    <h3>All Profiles</h3>
+                    <h3>{% trans 'All Profiles' %}</h3>
                 </div>
                 <div class="profiles-list" style="overflow-y:scroll;">
                     {% if all_profiles %}
@@ -104,7 +104,7 @@
                     {% else %}
                     <div class="profile-body">
                         <div class="name-box">
-                            <h4>No profile to show! </h4>
+                            <h4>{% trans 'No profile to show!' %} </h4>
                         </div>
                     </div>
                     {% endif %}
@@ -120,7 +120,7 @@
             <!-- Perfis bloqueados -->
             <div class="profile-box full-width" style="margin-bottom: 20px;">
                 <div class="profile-title">
-                    <h3>Blocked</h3>
+                    <h3>{% trans 'Blocked' %}</h3>
                 </div>
                 <div class="profiles-list" style="overflow-y:scroll;">
                     {% if blocked_list %}
@@ -142,7 +142,7 @@
                     {% else %}
                     <div class="profile-body">
                         <div class="name-box">
-                            <h4>No blocked profiles </h4>
+                            <h4>{% trans 'No blocked profiles ' %}</h4>
                         </div>
                     </div>
                     {% endif %}

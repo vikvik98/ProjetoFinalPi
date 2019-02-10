@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-10 15:39-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: WTFnews/settings.py:122
+msgid "English"
+msgstr ""
+
+#: WTFnews/settings.py:123
+msgid "Brazilian portuguese"
+msgstr ""
+
+#: perfil/forms.py:7
+msgid "Reason"
+msgstr ""
+
+#: perfil/forms.py:12
+msgid "Please, Check the reported data."
+msgstr ""
+
+#: perfil/models.py:41
+msgid "This profile is already a guest or invited you."
+msgstr ""
+
+#: perfil/models.py:46 postagens/views.py:41
+msgid "You don't have permission to this operation."
+msgstr ""
+
+#: perfil/templates/disable_profile.html:17
+msgid "Disable"
+msgstr ""
+
+#: perfil/views.py:149
+msgid "Invitation sent successfully."
+msgstr ""
+
+#: perfil/views.py:158
+msgid "Invitation canceled successfully."
+msgstr ""
+
+#: perfil/views.py:168
+msgid "Invitation accepted successfully."
+msgstr ""
+
+#: perfil/views.py:177
+msgid "Invitation rejected successfully."
+msgstr ""
+
+#: perfil/views.py:186
+msgid "Friendship successfully disbanded."
+msgstr ""
+
+#: postagens/forms.py:8
+msgid "Say something"
+msgstr ""
+
+#: postagens/forms.py:16
+msgid "Please, add a photo or text."
+msgstr ""
+
+#: postagens/views.py:28
+msgid "Post added successfully."
+msgstr ""
+
+#: postagens/views.py:39
+msgid "Successfully deleted post."
+msgstr ""
+
+#: usuarios/forms.py:9
+msgid "Username"
+msgstr ""
+
+#: usuarios/forms.py:10
+msgid "Email"
+msgstr ""
+
+#: usuarios/forms.py:12
+msgid "Password"
+msgstr ""
+
+#: usuarios/forms.py:17
+msgid "This username is already being used."
+msgstr ""
+
+#: usuarios/forms.py:23
+msgid "This email is already being used."
+msgstr ""
+
+#: usuarios/forms.py:29
+msgid "Invalid Email and/or password."
+msgstr ""
+
+#: usuarios/forms.py:42
+msgid "The new password is not the same as the password confirmation."
+msgstr ""
+
+#: usuarios/forms.py:43
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+
+#: usuarios/forms.py:47
+msgid "Old password"
+msgstr ""
+
+#: usuarios/forms.py:49
+msgid "New password"
+msgstr ""
+
+#: usuarios/forms.py:51
+msgid "Confirm new password"
+msgstr ""

@@ -1,6 +1,6 @@
-from django.db import models, IntegrityError
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db import models, IntegrityError
+from django.utils.translation import gettext_lazy as _
 
 
 class Profile(models.Model):
@@ -33,15 +33,18 @@ class Profile(models.Model):
         self.user.save()
 
     def invite(self, invited_profile):
-        if (invited_profile not in self.guests_profiles.all()) and\
+        if (invited_profile not in self.guests_profiles.all()) and \
                 (invited_profile not in self.inviters_profiles.all()):
             invitation = Invitation(inviter=self, guest=invited_profile)
             invitation.save()
             return
-        raise IntegrityError("This profile is already a guest or invited you.")
+        raise IntegrityError(_("This profile is already a guest or invited you."))
 
 
 class Invitation(models.Model):
+    error_messages = {
+        'no_permission': _("You don't have permission to this operation.")
+    }
 
     inviter = models.ForeignKey(Profile, related_name='sent_invitations', on_delete=models.CASCADE)
     guest = models.ForeignKey(Profile, related_name='received_invitations', on_delete=models.CASCADE)
@@ -52,16 +55,16 @@ class Invitation(models.Model):
             logged.friends.add(self.inviter)
             self.delete()
             return
-        raise PermissionError("You don't have permission to this operation.")
+        raise PermissionError(self.error_messages['no_permission'])
 
     def decline(self, logged):
         if logged == self.guest:
             self.delete()
             return
-        raise PermissionError("You don't have permission to this operation.")
+        raise PermissionError(self.error_messages['no_permission'])
 
     def cancel(self, logged):
         if logged == self.inviter:
             self.delete()
             return
-        raise PermissionError("You don't have permission to cancel this")
+        raise PermissionError(self.error_messages['no_permission'])
