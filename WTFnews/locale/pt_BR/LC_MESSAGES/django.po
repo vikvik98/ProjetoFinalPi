@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-10 20:57+0000\n"
+"POT-Creation-Date: 2019-02-10 19:24-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,16 +87,12 @@ msgstr "Nenhum convite recebido"
 
 #: perfil/templates/logged_profile.html:31
 #: usuarios/templates/change_password.html:19
-#, fuzzy
-#| msgid "New password"
 msgid "Change password"
-msgstr "Nova senha"
+msgstr "Mudar senha"
 
 #: perfil/templates/logged_profile.html:36
-#, fuzzy
-#| msgid "Disable"
 msgid "Disable Profile"
-msgstr "Desabilitar"
+msgstr "Desativar pefil"
 
 #: perfil/templates/logged_profile.html:42
 msgid "Stop being superuser"
@@ -146,29 +142,33 @@ msgstr "Rejeitar"
 msgid "Invite"
 msgstr "Convidar"
 
+#: perfil/templates/profile.html:57
+msgid "Are you sure you want to unblock this profile?"
+msgstr "Quer mesmo desbloquear este perfil?"
+
 #: perfil/templates/profile.html:59
 msgid "Unblock User"
 msgstr "Desblokear usuario"
+
+#: perfil/templates/profile.html:62
+msgid "Are you sure you want to block this profile?"
+msgstr "Quer msm bloquear este perfil?"
 
 #: perfil/templates/profile.html:64
 msgid "Block User"
 msgstr "Bloquear usuario"
 
 #: perfil/templates/profile.html:74
-#, fuzzy
-#| msgid "This profile is already a guest or invited you."
 msgid "This profile is a super user"
-msgstr "Este perfil já é seu convidado ou convidou você"
+msgstr "Este perfil é um superusario"
 
 #: perfil/templates/profile.html:78
 msgid "Make him a super user"
 msgstr "Torna-lo superuser"
 
 #: perfil/templates/profile.html:82
-#, fuzzy
-#| msgid "This profile is already a guest or invited you."
 msgid "This profile is not a super user"
-msgstr "Este perfil já é seu convidado ou convidou você"
+msgstr "Este perfil não é um superusuario"
 
 #: perfil/templates/search_profile.html:32
 msgid "No profile found"
@@ -205,6 +205,10 @@ msgstr "Digite algo"
 #: postagens/templates/add_post.html:25
 msgid "Add Post"
 msgstr "Adicionar post"
+
+#: postagens/templates/posts.html:21
+msgid "Are you sure you want to delete this item?"
+msgstr "Quer mesmo remover esta postagem?"
 
 #: postagens/templates/posts.html:49
 msgid "Nothing to show"
@@ -277,10 +281,8 @@ msgid "Log In"
 msgstr "Logar"
 
 #: usuarios/templates/login.html:40
-#, fuzzy
-#| msgid "Old password"
 msgid "Forgot password?"
-msgstr "Senha atual"
+msgstr "Esquecceu a senha?"
 
 #: usuarios/templates/login.html:41
 msgid "Don't have an account? Sign-up here"
@@ -299,10 +301,8 @@ msgid "Login here"
 msgstr "Logar"
 
 #: usuarios/templates/password_reset_confirm.html:20
-#, fuzzy
-#| msgid "Password"
 msgid "Reset Password"
-msgstr "Senha"
+msgstr "Redefinir senha"
 
 #: usuarios/templates/password_reset_done.html:7
 msgid "An email has been sent with instructions to reset your password"

@@ -54,12 +54,12 @@
                     {% endif %}
                     {% endif %}
                     {% if profile in logged_profile.blocked.all %}
-                    <a onclick="return confirm('Are you sure you want to unblock this profile?')"
+                    <a onclick="return confirm('{% trans 'Are you sure you want to unblock this profile?' %}')"
                        href="{% url 'unblock_user' profile.id %}">
                         <button type="button" class="btn btn-success btn-sm">{% trans 'Unblock User' %}</button>
                     </a>
                     {% else %}
-                    <a onclick="return confirm('Are you sure you want to block this profile?')"
+                    <a onclick="return confirm('{% trans 'Are you sure you want to block this profile?' %}')"
                        href="{% url 'block_user' profile.id %}">
                         <button type="button" class="btn btn-danger btn-sm">{% trans 'Block User' %}</button>
                     </a>
