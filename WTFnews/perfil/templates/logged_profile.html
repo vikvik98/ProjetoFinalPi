@@ -36,6 +36,17 @@
                                 {% trans 'Disable Profile' %}</a>
                         </li>
                         <li>
+                            {% if not logged_profile.is_private %}
+                            <a href="{% url 'make_private' %}">
+                                <i class="glyphicon glyphicon-user"></i>
+                                {% trans 'Make private profile' %}</a>
+                            {% else %}
+                            <a href="{% url 'disable_private' %}">
+                                <i class="glyphicon glyphicon-user"></i>
+                                {% trans 'Make private not profile' %}</a>
+                            {% endif %}
+                        </li>
+                        <li>
                             {% if logged_profile.is_superuser %}
                             <a href="{% url 'give_up_superuser' %}">
                                 <i class="glyphicon glyphicon-remove"></i>
@@ -53,7 +64,7 @@
             <!-- Amigos -->
             <div class="profile-box full-width" style="margin-bottom: 20px;">
                 <div class="profile-title">
-                    <h3>Friends</h3>
+                    <h3>{% trans 'Friends' %}</h3>
                 </div>
                 <div class="profiles-list" style="overflow-y:scroll;">
                     {% if friends_list %}

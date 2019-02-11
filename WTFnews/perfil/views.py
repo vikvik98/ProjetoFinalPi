@@ -7,9 +7,9 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
-from perfil.forms import DisableProfileForm
+from perfil.forms import DisableProfileForm, CommentForm
 from perfil.models import Profile, Invitation
-from postagens.models import Post
+from postagens.models import Post, Commentary
 
 
 @login_required
@@ -208,6 +208,27 @@ class DisableProfileView(View):
         return render(request, self.template_post, {'form': disable_profile})
 
 
+class CommentView(View):
+    template_post = 'commentary.html'
+
+    def get(self, request, id_post):
+        form = CommentForm()
+        return render(request, self.template_post, {'form': form})
+
+    def post(self, request, id_post):
+        commentaryForm = CommentForm(request.POST)
+        logged_profile = get_logged_profile(request)
+        post = Post.objects.get(id= id_post)
+        if commentaryForm.is_valid():
+            commentary = Commentary(post= post)
+            commentary.message = commentaryForm.cleaned_data['text']
+            commentary.profile = logged_profile
+            commentary.save()
+            return redirect('index')
+
+        return render(request, self.template_post, {'form': commentaryForm})
+
+
 @login_required
 def make_superuser(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
@@ -264,3 +285,17 @@ def unblock_user(request, profile_id):
 @login_required
 def show_blockers_profile(request):
     return render(request, 'blockers_profile.html')
+
+
+def make_profile_private(request):
+    profile_logged = get_logged_profile(request)
+    profile_logged.is_private = True
+    profile_logged.save()
+    return redirect('show_logged_profile')
+
+
+def make_profile_not_private(request):
+    profile_logged = get_logged_profile(request)
+    profile_logged.is_private = False
+    profile_logged.save()
+    return redirect('show_logged_profile')

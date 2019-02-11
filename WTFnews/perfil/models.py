@@ -18,6 +18,8 @@ class Profile(models.Model):
 
     reason_disable = models.CharField(max_length=200, default="No have")
 
+    is_private = models.BooleanField(default=False)
+
     def is_superuser(self):
         return self.user.is_superuser
 

@@ -3,7 +3,11 @@
 
 <div class="container img-container">
     <div id="upload-div"></div>
-    {% if posts %}
+    {% if profile.is_private and profile not in logged_profile.friends.all %}
+    <div class="img-div" style="margin-top:50px;">
+        <strong><h1 align="center">{% trans 'This profile is private.' %}</h1></strong>
+    </div>
+    {% elif posts %}
     {% for post in posts %}
     <div class="container img-container">
         <div class="post-box full-width">
@@ -35,10 +39,15 @@
             {% endif %}
             <div class="footer">
                 <a href="#"><i class="fa fa-heart-o"></i></a>
-                <a href="#"><i class="fa fa-comment-o"></i></a>
+                <a href="{% url 'comment' post.id %}"><i class="fa fa-comment-o"></i></a>
             </div>
             <div class="more-section">
-                <label>10 Likes</label>
+                <label>{{post.comments.count}} {% trans 'Comments' %}</label>
+                {% if post.comments %}
+                {% for commentary in post.comments.all %}
+                <p><strong>{{commentary.profile.name}} </strong>{{commentary.message}}</p>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
