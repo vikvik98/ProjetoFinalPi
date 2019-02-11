@@ -68,7 +68,8 @@
                                      src="{% static 'perfil/assets/img/17.jpeg' %}">
                                 <div class="name-box">
                                     <h4>{{ profile.name }}</h4>
-                                    <span>{{ profile.user.email }}</span>
+                                    <span>{{ profile.user.email }}</span><br>
+                                    <strong><span>{% trans 'Mutual friends:' %} {{ profile.abc }}</span></strong>
                                 </div>
                             </a>
                             <span><a href="{% url 'invite' profile.id %}"><i class="fa fa-plus"></i></a></span>
