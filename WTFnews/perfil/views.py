@@ -28,6 +28,9 @@ def index(request):
         .exclude(id__in=blockers_list) \
         .exclude(id=logged_profile.id)
 
+    suggested_profiles = suggested_friends(logged_profile_friends, suggested_profiles)
+
+
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
@@ -52,6 +55,17 @@ def index(request):
         'logged_profile_friends': logged_profile_friends,
         'posts': posts
     })
+
+
+def suggested_friends(list_friends, list_treated):
+    suggested_friends = []
+    for friend in list_friends:
+        for profile in friend.friends.all():
+            if profile in list_treated and profile not in suggested_friends:
+                suggested_friends.append(profile)
+
+    return suggested_friends
+
 
 
 @login_required
