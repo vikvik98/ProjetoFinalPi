@@ -46,7 +46,7 @@ class SharePostView(View):
 
     def get(self, request, post_id):
         form = AddPostForm()
-        return render(request, self.template_post, {'form': form})
+        return render(request, self.template_post, {'form': form, 'is_share': True})
 
     def post(self, request, post_id):
         add_postform = AddPostForm(request.POST)
@@ -96,7 +96,7 @@ class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     name = 'post-list'
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAuthenticated,
         IsProfileOrReadOnly
     )
 
@@ -109,7 +109,7 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     name = 'post-detail'
     permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAuthenticated,
         IsProfileOrReadOnly
     )
 

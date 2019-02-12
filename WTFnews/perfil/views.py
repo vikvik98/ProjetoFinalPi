@@ -30,7 +30,6 @@ def index(request):
 
     suggested_profiles = suggested_friends(logged_profile_friends, suggested_profiles)
 
-
     sent_invitations = logged_profile.sent_invitations.all()
     received_invitations = logged_profile.received_invitations.all()
     posts = get_posts(request)
@@ -58,23 +57,19 @@ def index(request):
 
 
 def suggested_friends(list_friends, list_treated):
-    suggested_friends = []
     count = 0
-
     for suggested in list_treated:
         for friend in list_friends:
             if suggested in friend.friends.all():
                 count += 1
-                if not suggested in suggested_friends:
-                    suggested_friends.append(suggested)
-        print(count)
         suggested.abc = count
         count = 0
+
+    suggested_friends = list(list_treated)
 
     suggested_friends.sort(key=lambda x: x.abc, reverse=True)
 
     return suggested_friends
-
 
 
 @login_required
@@ -241,9 +236,9 @@ class CommentView(View):
     def post(self, request, id_post):
         commentaryForm = CommentForm(request.POST)
         logged_profile = get_logged_profile(request)
-        post = Post.objects.get(id= id_post)
+        post = Post.objects.get(id=id_post)
         if commentaryForm.is_valid():
-            commentary = Commentary(post= post)
+            commentary = Commentary(post=post)
             commentary.message = commentaryForm.cleaned_data['text']
             commentary.profile = logged_profile
             commentary.save()

@@ -149,11 +149,12 @@ EMAIL_HOST_USER = "wtfnews98@gmail.com"
 EMAIL_HOST_PASSWORD = "c~vbfghnfghfghfghdfgsdfgs"
 EMAIL_PORT = 587
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',)
 }

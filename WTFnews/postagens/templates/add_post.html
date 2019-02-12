@@ -13,6 +13,8 @@
                        autofocus>
             </div>
 
+            {% if not is_share %}
+
             <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
             <input
                     type="hidden"
@@ -20,6 +22,8 @@
                     name="photo"
                     data-image-shrink="800x800 40%"
                     data-crop="4:4"/>
+
+            {% endif %}
 
             <div class="form-group">
                 <button class="btn btn-warning btn-block" type="submit">{% trans 'Add Post' %}</button>
