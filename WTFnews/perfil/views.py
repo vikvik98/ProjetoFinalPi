@@ -57,15 +57,16 @@ def index(request):
 
 
 def suggested_friends(list_friends, list_treated):
+    suggested_friends =[]
     count = 0
     for suggested in list_treated:
         for friend in list_friends:
             if suggested in friend.friends.all():
                 count += 1
+                if not suggested in suggested_friends:
+                    suggested_friends.append(suggested)
         suggested.abc = count
         count = 0
-
-    suggested_friends = list(list_treated)
 
     suggested_friends.sort(key=lambda x: x.abc, reverse=True)
 

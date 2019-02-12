@@ -78,7 +78,7 @@ class SharePostView(View):
                 return redirect('index')
             return render(request, self.template_post, {'form': add_postform})
 
-        return render(request, self.template_post, {'form': add_postform})
+        return render(request, self.template_post, {'form': add_postform, 'is_share': True})
 
 
 @login_required
@@ -114,16 +114,24 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
-class ProfileList(generics.ListCreateAPIView):
+class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     name = 'profile-list'
+    permission_classes = (
+        permissions.IsAuthenticated,
+        IsProfileOrReadOnly
+    )
 
 
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     name = 'profile-detail'
+    permission_classes = (
+        permissions.IsAuthenticated,
+        IsProfileOrReadOnly
+    )
 
 
 class ApiRoot(generics.GenericAPIView):
