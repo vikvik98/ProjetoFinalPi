@@ -2,10 +2,20 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
+from rest_framework import generics, permissions
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
+from perfil.models import Profile
 from postagens.forms import AddPostForm
 from postagens.models import Post
 from django.contrib import messages
+
+from postagens.permissions import IsProfileOrReadOnly
+from postagens.serializers import PostSerializer, ProfileSerializer
+
 
 class AddPostView(View):
     template_post = 'add_post.html'
@@ -80,3 +90,59 @@ def delete_post(request, post_id):
         return redirect('index')
     raise PermissionError(_("You don't have permission to this operation."))
 
+
+class PostList(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    name = 'post-list'
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsProfileOrReadOnly
+    )
+
+    def perform_create(self, serializer):
+        serializer.save(profile= self.request.user.profile)
+
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    name = 'post-detail'
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsProfileOrReadOnly
+    )
+
+
+class ProfileList(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    name = 'profile-list'
+
+
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    name = 'profile-detail'
+
+
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+    def get(self,request, *args, **kwargs):
+        return Response({'posts': reverse(PostList.name, request=request),
+                         'profiles': reverse(ProfileList.name, request=request)})
+
+
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'email': user.email
+        })
