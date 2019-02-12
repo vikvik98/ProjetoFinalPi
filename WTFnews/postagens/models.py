@@ -11,6 +11,8 @@ class Post(models.Model):
                                 related_name='posts')
     photo = ImageField(null=True, blank=True, manual_crop="")
 
+    shared_post = models.ForeignKey('self', on_delete=models.CASCADE, related_name='post', null=True)
+
 
 
 

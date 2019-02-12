@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-11 00:07-0300\n"
+"POT-Creation-Date: 2019-02-12 00:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr "Você não tem permissao para esta operação"
 
 #: .\perfil\templates\commentary.html:12
 msgid "Commentary"
-msgstr ""
+msgstr "Comentario"
 
 #: .\perfil\templates\commentary.html:16
 msgid "Comment"
-msgstr ""
+msgstr "Comentar"
 
 #: .\perfil\templates\disable_profile.html:12
 msgid "Reason"
@@ -73,23 +73,27 @@ msgstr "Nenhum amigo! :("
 msgid "Suggestions"
 msgstr "Sugestões"
 
-#: .\perfil\templates\index.html:80
+#: .\perfil\templates\index.html:72
+msgid "Mutual friends:"
+msgstr "Amigos em comum:"
+
+#: .\perfil\templates\index.html:81
 msgid "No suggestions"
 msgstr "Sem sugestões"
 
-#: .\perfil\templates\index.html:88
+#: .\perfil\templates\index.html:89
 msgid "Submitted requests"
 msgstr "Convites enviados"
 
-#: .\perfil\templates\index.html:110
+#: .\perfil\templates\index.html:111
 msgid "No requests sent"
 msgstr "Nenhum convite enviado"
 
-#: .\perfil\templates\index.html:118
+#: .\perfil\templates\index.html:119
 msgid "Requests received"
 msgstr "Convites recebidos"
 
-#: .\perfil\templates\index.html:141
+#: .\perfil\templates\index.html:142
 msgid "No requests received"
 msgstr "Nenhum convite recebido"
 
@@ -196,23 +200,23 @@ msgstr "Resultado da pesquisa."
 msgid "No profile found"
 msgstr "Nenhum perfil encontrado"
 
-#: .\perfil\views.py:149
+#: .\perfil\views.py:172
 msgid "Invitation sent successfully."
 msgstr "Convite enviado com sucesso"
 
-#: .\perfil\views.py:158
+#: .\perfil\views.py:181
 msgid "Invitation canceled successfully."
 msgstr "Convite cancelado"
 
-#: .\perfil\views.py:168
+#: .\perfil\views.py:191
 msgid "Invitation accepted successfully."
 msgstr "Convite aceito"
 
-#: .\perfil\views.py:177
+#: .\perfil\views.py:200
 msgid "Invitation rejected successfully."
 msgstr "Convite rejeitado"
 
-#: .\perfil\views.py:186
+#: .\perfil\views.py:209
 msgid "Friendship successfully disbanded."
 msgstr "Amigo removido com sucesso"
 

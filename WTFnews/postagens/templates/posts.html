@@ -28,18 +28,53 @@
                 </div>
             </div>
         </div>
-        <div class="img-div">
+
             {% if post.content %}
-            <div class="panel-body">
+            <div class="panel-body" style="background-color: #fff; border-left: 1px solid #e8e6e6; border-right: 1px solid #e8e6e6;" >
                 <p>{{ post.content }}</p>
+                {% if post.shared_post %}
+        <div class="container img-container">
+            <div class="post-box full-width">
+                <div class="post-list">
+                    <div class="post-body">
+                        <a href="{% url 'show_profile' post.shared_post.profile.id %}">
+                            <img alt="Image" class="img img-responsive img-circle"
+                                 src="{% static 'perfil/assets/img/profile.png' %}">
+                            <div class="name-box">
+                                <h4>{{ post.shared_post.profile.name }}</h4>
+                                <span>{{ post.shared_post.date }}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="img-div">
+        {% if post.shared_post.content %}
+        <div class="panel-body">
+            <p>{{ post.shared_post.content }}</p>
+        </div>
+        {% endif %}
+        {% if post.shared_post.photo %}
+        <img class="img-fluid" src="{{ post.shared_post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/"
+             alt="">
+        {% endif %}
+            </div>
+        </div>
+
+        {% endif %}
             </div>
             {% endif %}
-            {% if post.photo %}
+        {% if post.photo %}
+        <div class="img-div">
             <img class="img-fluid" src="{{ post.photo.cdn_url }}-/crop/600x600/center/-/quality/lightest/" alt="">
-            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="img-div">
             <div class="footer">
                 <a href="#"><i class="fa fa-heart-o"></i></a>
                 <a href="{% url 'comment' post.id %}"><i class="fa fa-comment-o"></i></a>
+                <a href="{% url 'share' post.id %}"><i class="fa fa-share"></i></a>
             </div>
             <div class="more-section">
                 <label>{{post.comments.count}} {% trans 'Comments' %}</label>
@@ -50,6 +85,7 @@
                 {% endif %}
             </div>
         </div>
+
     </div>
     {% endfor %}
     {% include 'pagination.html' with posts=posts %}

@@ -10,23 +10,39 @@ from django.contrib import messages
 class AddPostView(View):
     template_post = 'add_post.html'
 
-    def get(self, request):
+    def get(self, request, post_id):
         form = AddPostForm()
         return render(request, self.template_post, {'form': form})
 
-    def post(self, request):
+    def post(self, request, post_id):
         add_postform = AddPostForm(request.POST)
-        if add_postform.is_valid():
-            post = Post(profile=request.user.profile)
-            text = add_postform.cleaned_data['text']
-            photo = add_postform.cleaned_data['photo']
-            if text:
-                post.content = text
-            if photo:
-                post.photo = photo
-            post.save()
-            messages.success(request, _("Post added successfully."))
-            return redirect('index')
+        if post_id:
+            shared_post = Post.objects.get(id= post_id)
+            if add_postform.is_valid():
+                post = Post(profile=request.user.profile)
+                text = add_postform.cleaned_data['text']
+                photo = add_postform.cleaned_data['photo']
+                if text:
+                    post.content = text
+                if photo:
+                    post.photo = photo
+                post.shared_post = shared_post
+                post.save()
+                messages.success(request, _("Post added successfully."))
+                return redirect('index')
+        else:
+            if add_postform.is_valid():
+                post = Post(profile=request.user.profile)
+                text = add_postform.cleaned_data['text']
+                photo = add_postform.cleaned_data['photo']
+                if text:
+                    post.content = text
+                if photo:
+                    post.photo = photo
+                post.save()
+                messages.success(request, _("Post added successfully."))
+                return redirect('index')
+            return render(request, self.template_post, {'form': add_postform})
 
         return render(request, self.template_post, {'form': add_postform})
 
@@ -39,3 +55,4 @@ def delete_post(request, post_id):
         messages.success(request, _("Successfully deleted post."))
         return redirect('index')
     raise PermissionError(_("You don't have permission to this operation."))
+

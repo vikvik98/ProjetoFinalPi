@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-11 00:07-0300\n"
+"POT-Creation-Date: 2019-02-12 00:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,23 +74,27 @@ msgstr ""
 msgid "Suggestions"
 msgstr ""
 
-#: .\perfil\templates\index.html:80
+#: .\perfil\templates\index.html:72
+msgid "Mutual friends:"
+msgstr ""
+
+#: .\perfil\templates\index.html:81
 msgid "No suggestions"
 msgstr ""
 
-#: .\perfil\templates\index.html:88
+#: .\perfil\templates\index.html:89
 msgid "Submitted requests"
 msgstr ""
 
-#: .\perfil\templates\index.html:110
+#: .\perfil\templates\index.html:111
 msgid "No requests sent"
 msgstr ""
 
-#: .\perfil\templates\index.html:118
+#: .\perfil\templates\index.html:119
 msgid "Requests received"
 msgstr ""
 
-#: .\perfil\templates\index.html:141
+#: .\perfil\templates\index.html:142
 msgid "No requests received"
 msgstr ""
 
@@ -195,23 +199,23 @@ msgstr ""
 msgid "No profile found"
 msgstr ""
 
-#: .\perfil\views.py:149
+#: .\perfil\views.py:172
 msgid "Invitation sent successfully."
 msgstr ""
 
-#: .\perfil\views.py:158
+#: .\perfil\views.py:181
 msgid "Invitation canceled successfully."
 msgstr ""
 
-#: .\perfil\views.py:168
+#: .\perfil\views.py:191
 msgid "Invitation accepted successfully."
 msgstr ""
 
-#: .\perfil\views.py:177
+#: .\perfil\views.py:200
 msgid "Invitation rejected successfully."
 msgstr ""
 
-#: .\perfil\views.py:186
+#: .\perfil\views.py:209
 msgid "Friendship successfully disbanded."
 msgstr ""
 
